@@ -1,0 +1,41 @@
+.parrent {
+  border: 1px solid green;
+  font-size: 100px;
+  color: #fff;
+  font-family: helvetica;
+  height: 600px;
+  display: flex; 
+  /* flex-direction: row; */
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  /* align-content: center; */
+}
+
+.parrent > * {
+  border: 1px solid purple;
+  /* padding: 10px 20px; */
+  margin: 0 10px;
+  /* height: 200px; */
+  width: 200px;
+}
+
+.red {
+  background: red;
+}
+
+.yellow {
+  background: yellow;
+}
+
+.orange {
+  background: orange;
+}
+
+.green {
+  background: green;  
+}
+
+.green2 {
+  background: purple;
+}

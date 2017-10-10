@@ -1,0 +1,51 @@
+body {
+  margin: 0;
+  font-family: helvetica;
+  color: #eee;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  min-height: 100vh;
+}
+a {
+  color: #eee;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  background: lawngreen;
+  align-items: center;
+}
+main {
+  display: flex;
+  flex-basis: 400px;
+}
+article {
+  flex: 4 0 60%;
+  background: crimson;
+}
+nav {
+  flex: 1 1 20%;
+  background: dodgerblue;
+  order: -1;
+}
+aside {
+  flex: 1 1 20%;
+  background: hotpink;
+}
+footer {
+  background: yellow;
+}
+header, footer {
+  flex-basis: 100px;
+}
+
+@media screen and (max-width: 640px) {
+  main {
+    flex-direction: column;
+    flex-grow: 1;
+  }
+  nav {
+    order: 0;
+  }
+}

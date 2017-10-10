@@ -1,0 +1,76 @@
+
+.transforms > div {
+  width: 60px;
+  height: 60px;
+  margin-top: 20px;
+}
+
+.blue {
+  background: blue;
+}
+
+.purple {
+  background: purple;
+}
+
+.green {
+  background: green;
+}
+
+.blue:active {
+  transform: translateX(60px);
+  transform: scaleX(2);
+  transform-origin: left;
+}
+
+.purple:active {
+  transform: translateY(-60px) 
+             scaleY(2);
+  transform-origin: top;
+}
+
+.green:active {
+  transform: translate(60px, 60px);
+  transform: scale(2, 4);
+  transform-origin: 0 0;
+}
+
+.circle {
+  border: 8px solid purple;
+  /* border-radius: 100px; */
+}
+
+.circle:active {
+  transform: rotate(45deg);
+}
+
+.transitions > div {
+  width: 100px;
+  height: 100px;
+  margin-top: 20px;
+}
+
+.lawngreen {
+  background: lawngreen;
+}
+
+.crimson {
+  background: crimson;
+}
+
+.lawngreen:active {
+  transform-origin: 100px 200px;
+  transform: scale(2)
+             rotate(45deg);
+  transition-property: transform, background;
+  transition-duration: 1s;
+  background: yellow;
+  border: 2px solid blue;
+  transition-timing-function: ease-in;
+}
+
+.crimson:active {
+  transform-origin: 0 0;
+  transform: scale(2);
+}
+

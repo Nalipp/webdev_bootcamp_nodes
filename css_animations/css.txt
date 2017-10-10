@@ -1,0 +1,12 @@
+****************************************************************************************************
+general css
+****************************************************************************************************
+
+*auto prefixers
+
+****************************************************************************************************
+*auto prefixers
+
+  webkits change and are a lot to type
+  instead you can search google for auto prefixer and copy and paste an up to date version
+  or try https://autoprefixer.github.io/

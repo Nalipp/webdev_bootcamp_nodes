@@ -1,0 +1,92 @@
+****************************************************************************************************
+css animations
+****************************************************************************************************
+
+*psuedo classes
+*transforms
+*transition
+
+****************************************************************************************************
+*psuedo classes
+
+  p:active { background: purple; }
+    if you click on the paragraph the background will be purple as long as the mouse is still clicked
+
+
+****************************************************************************************************
+*transforms
+
+  transform: translateX(20px);
+  transform: translateY(20px);
+  transform: translate(20px, 20px);
+
+  transform: scaleX(2);              // doubles the width
+  transform: scaleY(2);              // doubles the height
+  transform: scale(2);               // doubles the size of everything selected
+  transform: scale(2, 4);            // doubles the width of everything selected and qudurples the height
+
+  transform-origin: 0 0;             // moves the origin of the transform from the center of the selected element to the upper left (left and top)
+  transform-origin: left;                 this prevents the transform from overlaping other elements to the left or expanding off the page
+  transform-origin: right;                
+  transform-origin: top;                
+  transform-origin: bottom;                
+  transform-origin: center;          // default
+
+  transform: rotateX(20px);
+  transform: rotateY(20px);
+  transform: rotate(45deg);
+
+  combining tranforms
+    transform: translateY(-60px) 
+               scaleY(2);
+
+
+****************************************************************************************************
+*transition
+
+  shorthand
+    transition: <property> <duration> <timing function> <delay>;
+      examples: 
+        transition: background 1.2s ease-in .2s;
+        transition: transform 1s cubic-bezier: (0.9, 0.5, 0.45, 0.8) .5s; 
+        transition: transform 1s ease-in .5,      // you can also use shorthand to apply to multiple transistions
+                    background 2s ease-out .3s;
+                   
+
+  transition-duration: .6s;
+
+  transition-property: scale(2);         // allows you to specify which transistion properties you want to change (by default everything is changes)
+  transition-property: background-color; // the transistions will only happen to the background color 
+                                            really only valuable when you are specifying a change in property (such as color) but not transistions
+  transition-property: transform;        // You can't specify multiple transition properties individually, instead use transform to apply to all
+                                            this will transform the scale but not the background color
+  transistion-propertie: border, scale(2)   // you can specify multiple transforms and element property changes
+  transition-duration: 2s, 5s;              // you can also control the transistion speed for multipe transistions properties
+                                               border will transition in 2s and scale(2) in 5s
+  transition-delay: .6s;
+  transition-delay: .6s, 3s;
+
+  transistion-duration: 2s, 5s;          // you can apply multiple transistions
+  transistion-delay: 1s, 2s;             // you can apply multiple transistions
+
+  transition-timing-function             // controls the acceleration of the animation
+  transition-timing-function: ease-in;
+  transition-timing-function: ease-out;
+  transition-timing-function: linear;            
+  transition-timing-function: cubic-bezier: (0.9, 0.5, 0.45, 0.8);
+    http://easings.net/
+    https://matthewlein.com/tools/ceaser
+
+    ********************
+    what should be transistioned?
+      
+      there are many css properties that can be transistioned but probably shouldn't be because of performance issues
+      the best things to stick to are the following
+        transform: translate();
+        transform: rotate();
+        transform: scale();
+        pacity
+        
+
+
+

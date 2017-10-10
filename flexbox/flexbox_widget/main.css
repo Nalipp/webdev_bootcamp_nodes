@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.box:hover {
+  background: #ff0052;
+}
+
+.box {
+  background: #cc0042;
+  color: white;
+  font-family: Helvetica;
+  padding: 20px;
+  transition: 0.1s background;
+}
+
+.middle {
+  background: #b20039;
+}
+
+.box {
+  flex-basis: 200px;
+  flex-grow: 1;
+}

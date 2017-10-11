@@ -1,0 +1,29 @@
+body {
+  font-family: helvetica;
+  color: #555;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+div {
+  margin-top: 80px;
+  border-top: 16px solid #ddd;
+  border-right: 16px solid dodgerblue;
+  border-bottom: 16px solid #ddd;
+  border-left: 16px solid dodgerblue;
+  border-radius: 100%;
+  width: 130px;
+  height: 130px;
+  animation: circle 3s ease-in infinite;
+}
+
+@keyframes circle {
+  50% { transform: scale(1.1) rotate(180deg); }
+}
+
+
+
+
+

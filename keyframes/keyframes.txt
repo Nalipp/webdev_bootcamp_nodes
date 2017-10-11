@@ -1,0 +1,45 @@
+****************************************************************************************************
+keyframes
+
+  example
+
+    p {
+      animation-name: rainbow,
+      animation-duration: 2s,
+      animation-delay: .1s,
+      animation-timing-function: linear,    // same attributes as transition-timing-function 
+      animation-iteration-count: infinate   // set this for the number of times you want the animation to run
+    }
+    
+    @keyframes rainbow {
+      0% {
+        background: red;
+        font-size: 10px;
+      }
+      25% {
+        background: yellow;
+        font-size: 20px;
+      }
+      50% {
+        background: orange;
+      }
+      100% {
+        background: green;
+        font-size: 10px;
+      }
+    }
+
+  ************************************************** 
+  additional animation attributes
+
+    animation-fill-mode: forward, backward            // what happens before and after the animation, what state should linger or not linger
+                                                         if you want the animation to stay on %100 instead of snaping back to 0% use the 'forward' property
+    animation-direction: forward, reverse, slternate  // specify the direction of the all the animation properties
+                                                         should the animation run from 0 to 100 or 100 to 0 or alternat  e
+    animation-play-state: paused, running             // allows you to pause or resume the animation 
+                                                           .box:hover { animation-play-state: paused } 
+                                                           if the box is hovered on during the animation its animation will pause
+                                                           opposite is running so that if you hover the animation starts
+
+  examples: jiggle button
+    https://codepen.io/Colt/pen/ayzoaw?editors=1100

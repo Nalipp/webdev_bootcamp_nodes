@@ -1,0 +1,29 @@
+h1 {
+  animation-duration: 4s;
+  animation-delay: .1s;
+  animation-timing-function: ease-in;
+  animation-iteration-count: infinite;
+  animation-direction: forward;
+}
+
+h1:nth-child(1) { animation-name: horizontal }
+h1:nth-child(2) { animation-name: diagnal }
+h1:nth-child(3) { animation-name: vertical }
+
+@keyframes diagnal {
+  25%, 75% { transform: translate(240px, 240px); }
+  50% { transform: translate(480px, 480px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes vertical {
+  25%, 75% { transform: translate(0, 240px); }
+  50% { transform: translate(0, 480px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes horizontal {
+  25%, 75% { transform: translate(240px, 0); }
+  50% { transform: translate(480px, 0); }
+  100% { transform: translate(0, 0); }
+}

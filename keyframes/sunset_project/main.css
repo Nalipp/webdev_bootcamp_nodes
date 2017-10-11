@@ -1,29 +1,82 @@
-h1 {
-  animation-duration: 4s;
-  animation-delay: .1s;
-  animation-timing-function: ease-in;
+* {
+  margin: 0;
+  padding: 0;
+}
+.sun {
+  position: absolute;
+  border-radius: 100px;
+  background: orange;
+  height: 150px;
+  width: 150px;
+  transform: translate(0, 300px);
+  animation-name: sun;
+  z-index: -1;
+}
+
+.sky {
+  position: relative;
+  height: 40vh;
+  width: 100vw;
+  background: skyblue;
+  animation-name: sky;
+  z-index: -2;
+}
+
+.ground {
+  position: relative;
+  height: 60vh;
+  width: 100vw;
+  background: green;
+  animation-name: ground;
+}
+
+.sky, .sun, .ground {
+  animation-duration: 10s;
+  animation-timing-function: linear;
   animation-iteration-count: infinite;
-  animation-direction: forward;
 }
 
-h1:nth-child(1) { animation-name: horizontal }
-h1:nth-child(2) { animation-name: diagnal }
-h1:nth-child(3) { animation-name: vertical }
-
-@keyframes diagnal {
-  25%, 75% { transform: translate(240px, 240px); }
-  50% { transform: translate(480px, 480px); }
-  100% { transform: translate(0, 0); }
+@keyframes sun {
+  0% { transform: translate(0, 300px); }
+  12% {
+    transform: translate(280px, 150px);
+    background: yellow;
+  }
+  24% {
+    transform: translate(560px, 0px);
+    background: yellow;
+  }
+  36% {
+    transform: translate(840px, 150px);
+    background: yellow;
+  }
+  50% {
+    transform: translate(1120px, 300px);
+    background: orange;
+  }
+  75% { transform: translate(560px, 600px); }
+  100% { transform: translate(0, 300px); }
 }
 
-@keyframes vertical {
-  25%, 75% { transform: translate(0, 240px); }
-  50% { transform: translate(0, 480px); }
-  100% { transform: translate(0, 0); }
+@keyframes sky {
+  0% { background: pink; }
+  12% { background: skyblue; }
+  24% { background: skyblue; }
+  36% { background: skyblue; }
+  50% { background: pink; }
+  55% { background: #26313D; }
+  90% { background: #26313D; }
+  100% { background: pink; }
 }
 
-@keyframes horizontal {
-  25%, 75% { transform: translate(240px, 0); }
-  50% { transform: translate(480px, 0); }
-  100% { transform: translate(0, 0); }
+@keyframes ground {
+  0% { background: green; }
+  12% { background: lawngreen; }
+  24% { background: lawngreen; }
+  36% { background: lawngreen; }
+  50% { background: green; }
+  55% { background: #313D26; }
+  90% { background: #313D26; }
+  100% { background: green; }
 }
+

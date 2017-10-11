@@ -43,3 +43,15 @@ keyframes
 
   examples: jiggle button
     https://codepen.io/Colt/pen/ayzoaw?editors=1100
+
+
+  **************************************************
+  shorthand
+
+    there is some flexability in the shorthand for animation (see documentation)
+    or just follow this pattern
+
+    animation: <name> <duration> <timing-function> <delay> <iteration-count>;
+      you can add more properties but beyond this it is probably getting a little difficult to read;
+      the first time(number) is always duration the second time(number) is delay -> iteration count will not count as a time(number)
+

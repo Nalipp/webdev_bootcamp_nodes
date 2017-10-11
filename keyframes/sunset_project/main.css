@@ -9,7 +9,7 @@
   height: 150px;
   width: 150px;
   transform: translate(0, 300px);
-  animation-name: sun;
+  animation: sun 10s linear infinite;
   z-index: -1;
 }
 
@@ -18,7 +18,7 @@
   height: 40vh;
   width: 100vw;
   background: skyblue;
-  animation-name: sky;
+  animation: sky 10s linear infinite;
   z-index: -2;
 }
 
@@ -27,13 +27,7 @@
   height: 60vh;
   width: 100vw;
   background: green;
-  animation-name: ground;
-}
-
-.sky, .sun, .ground {
-  animation-duration: 10s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
+  animation: ground 10s linear infinite;
 }
 
 @keyframes sun {

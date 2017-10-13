@@ -1,0 +1,109 @@
+****************************************************************************************************
+async foundations
+
+  callback functions 
+    -> a function that is passed to another function as a parameter, and then invoked by that function
+
+  higher order functions
+    -> a function that accepts a function(callback) as a parameter
+
+
+****************************************************************************************************
+the stack and the heap
+
+  describe what the stack is
+    an ordered data structure
+    keeps track of functions that have been invoked
+      the stack is modified as part of the javaScript runtime automatically 1.when you call a function or 2.when a function is finished running 
+
+      1. when the function is called it is 'pushed' to the top of the stack
+      2. when the function is finished (when the funtion returns) it gets 'popped' off the stack
+
+    The stack is an ordered set of stack frames(see below)
+    the most recently invoked functions are always at the top of the stack
+
+
+  describe the stack frame
+    
+    A stack frame is a function on that is currently on stack waiting to finish
+      The stack frame has
+        information about the function that was invoked
+        the parameters that were passed to the function
+        the current line number (where the function was invoked) so javaScript can know where to return to after the process is finished
+    
+
+  describe the heap
+    
+    An area in memory where data is stored
+    when an object is created is automatially alocated memory in the heap
+      references do not take up memory in the heap, memory is only used when values are saved in memory
+      
+
+****************************************************************************************************
+the event loop and the que
+
+  The que -> 
+    an ordered list of functions that are waiting to be placed on the stack  
+    they are processed first in first out basis fifo
+
+  The event loop -> 
+    functionality of the javaScript runtime that checks the que
+      when the stack is empty the event loop checks the que for any functions
+
+  describe how they work with the stack
+
+
+  define javaScript as a single threaded language
+
+****************************************************************************************************
+promises
+  
+  a promise is ->
+    object that represents a task that will be completed in the future
+    there are two parameters in a 'new Promise(resolve, reject)'
+    promises allow you to make your asyncronous code seem sequential
+
+  the .then callback handles a resolved promise
+
+  the .catch callback handles a rejected promise
+
+
+  example :
+
+    p1 = new Promise((resolve, reject) => {
+      setTimeout(() => { 
+        let randomNum = Math.floor(Math.random() * 100);
+        if (randomNum > 50) resolve('Win: ' + randomNum);
+        else reject('Loose: ' + randomNum);
+      }, 1000);
+    });
+
+    p1
+      .then((result) => console.log(result))
+      .catch((result) => console.log(result));
+
+
+  promise chaining
+
+    example :
+
+      let counter = 0;
+      let incCounter = () => {
+        counter += 1;
+        console.log('Counter : ' + counter);
+      };
+
+      let runLater = (cb, timeInMs) => {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            let res = cb();
+            resolve(res);
+          }, timeInMs);
+        });
+      };
+
+      runLater(incCounter, 2000).then(() => {
+        return runLater(incCounter, 500);
+      }).then(() => {
+        return runLater(incCounter, 100);
+      });

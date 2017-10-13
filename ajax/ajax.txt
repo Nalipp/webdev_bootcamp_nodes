@@ -1,0 +1,13 @@
+****************************************************************************************************
+ajax
+
+  ajax -> Asyncronous javaScript and Xml
+  allows clients to make requests to the server in the background with disrupting the page
+
+  XMLHTTP Requests -> a tool or api that allows you to make HTTP requests from the browser using javaScript
+
+  making request with ajax can be done with the following
+    1. XMLHTTP requests
+    2. The fetch API
+    3. Third party libraries (jQuery, Axios, etc)
+

@@ -1,8 +1,7 @@
 $("button").click(function() {
-  $.ajax({
+  $.getJSON({
     method: "GET",
-    url: "http://random.cat/meow",
-    dataType: 'json'
+    url: "http://random.cat/meow"
   })
   .done(updatePage)
   .fail(printError)

@@ -1,0 +1,110 @@
+****************************************************************************************************
+closures and this
+****************************************************************************************************
+
+*closures 
+  examples 
+  When is a closure helpful?
+  Creating immutablity in a closure
+
+
+****************************************************************************************************
+*closures 
+
+    examples :
+      
+      This *IS* a closure
+
+        let outer = () => {
+          var start = 'Closures are ';
+          return inner = () => {
+            start + 'awesome'; 
+          }
+        }
+
+        outer()() -> 'Closures are awesome'
+
+
+      This is *NOT* a closure
+
+        let outer = () => {
+          var start = 'Somethig here;
+          return inner = () => {
+            Closures are awesome'; 
+          }
+        }
+
+      A closure is when an inner function makes use of variables defined in an outer function
+      The outer function must return
+      A closure must be an inner function of an outer function and use a variable from the outer function
+      Only variables that are returned from the inner function are remembered
+
+  
+  **************************************************
+  When is a closure helpful?
+
+    Closures allow you to create private variables (variables that cannot be modified externally)
+
+      example :
+
+        let classRoom = () => {
+          let instructors = ['Elie', 'Colt'];
+          return {
+            getInstructors: () => {
+              return instructors;
+            },
+            addInstructors: (name) => {
+              instructors.push(name);
+              return instructors;
+            }
+          }
+        }
+
+        let javaScript101 = classRoom();
+
+        console.log(javaScript101.getInstructors());
+        console.log(javaScript101.addInstructors('Nate'));
+
+        let node101 = classRoom();
+        console.log(node101.getInstructors());
+
+
+  **************************************************
+  Creating immutablity in a closure
+
+    You can make a copy of the return elements with slice() so that you are unable to change the original variable defined in the outer function
+    .slice() makes the variable completly private
+
+      let workShift = () => {
+        let startTime = '00:00';
+        let workers = [];
+        return {
+          getStartTime: () => {
+            return startTime.slice();
+          },
+          getWorkers: () => {
+            return workers.slice(); // slice() prevents you from being able to manipulate the workers array
+          },
+          setStartTime: (time) => {
+            startTime = time;
+            return startTime.slice();
+          },
+          addWorker: (name) => {
+            workers.push(name);
+            return workers.slice();
+          },
+        }
+      }
+
+      let saturday = workShift();
+
+      saturday.setStartTime('2:00');
+      saturday.addWorker('Nate');
+      saturday.addWorker('Nick');
+
+      console.log(saturday.getStartTime());
+      console.log(saturday.getWorkers());
+
+      saturday.getWorkers().push('Jess')  // without slice() this code would allow you to manipulate the workers array
+      console.log(saturday.getWorkers()); // ['Nate', 'Nick', 'Jess']
+

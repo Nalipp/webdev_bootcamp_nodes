@@ -1,0 +1,133 @@
+****************************************************************************************************
+jasmine testing
+****************************************************************************************************
+
+  *introductions
+  *matchers
+  *common patterns
+  *clock
+
+****************************************************************************************************
+  *introductions
+
+    jasmine is a BDD style framwork, which is similar to red, green, refactor TDD style, but BDD is more descriptive and focuses on user behavior
+
+    unit tests(most commin) -> test parts of an aplication (or units), usually each unit is tested individually 
+      used to test that the parts of the application are working correctly before putting them together
+
+    integration tests -> used to test more than one unit and how they work together
+      checks that larger parts of the application are working after the unit tests have been combined
+
+    acceptance tests -> test the entire application
+
+    stress tests -> how effective applications can be under unfavorable conditions (systems going down, high traffic)
+
+    jasmine works with the browser and node.js
+
+    describe -> what you are trying to test
+      it -> is a spec / a description of what you are trying to test
+        expect -> makes asertions
+          matchers -> examples: toBe()
+        
+    you will typically have a spec file that will contain all of the tests
+
+****************************************************************************************************
+  *matchers
+
+  examples
+    expect(instance).toBe(instance);                    // compares references in memory (===) 
+                                                           even if they are the same value they have to be the actual value in memory
+    expect(number).toBeCloseTo(number, decimalPlaces);
+    expect(mixed).toBeDefined();
+    expect(mixed).toBeFalsy();
+    expect(number).toBeGreaterThan(number);
+    expect(number).toBeLessThan(number);
+    expect(number).toBeNaN();
+    expect(mixed).toBeNull();
+    expect(mixed).toBeTruthy();
+    expect(mixed).toBeUndefined();
+    expect(array).toContain(member);
+    expect(mixed).toEqual(mixed);                       // doesen't compare references in memory, only if the values are the same
+    expect(spy).toHaveBeenCalled();
+    expect(spy).toHaveBeenCalledTimes(number);
+    expect(spy).toHaveBeenCalledWith(...arguments);
+    expect(mixed).toMatch(pattern);
+    expect(fn).toThrow(string);
+    expect(fn).toThrowError(string);
+
+  jasmine.any()  // alowsy you to check the type of data structure (similar to typeof except also specifies arrays)
+    expect([]).toEqual(jasmine.any(Array));
+
+
+****************************************************************************************************
+*common patterns
+
+  **************************************************
+  hooks
+
+    var arr;
+    beforeEach(function(){
+      count++;
+    });
+    afterEach(function(){
+      count = 0;
+    });
+
+    beforeAll
+    afterAll
+    (not commonly needed)
+
+
+  **************************************************
+  nesting describe blocks to group functionality
+
+    describe("array", function() {
+      describe("#unshift", function() {
+        ...
+      })
+      describe("#push", function() {
+        ...
+      })
+    })
+
+  ************************************************** 
+  pending 
+  
+    xit
+
+  ************************************************** 
+  testing asyncronous code
+
+    requires passing (done) as a parameter
+
+
+****************************************************************************************************
+*clock
+
+  clock is used for testing time dependency code
+  jasmine.clock().install()
+  it needs to be installed before each check and also uninstalled after
+
+  example
+
+    describe("a simple setTimeout", function(){
+      var sample;
+      beforeEach(function() {
+        sample = jasmine.createSpy("sampleFunction");
+        jasmine.clock().install();
+      });
+
+      afterEach(function() {
+        jasmine.clock().uninstall();
+      });
+
+      it("is only invoked after 1000 milliseconds", function(){
+        setTimeout(function() {
+          sample();
+        }, 1000);
+        jasmine.clock().tick(999);
+        expect(sample).not.toHaveBeenCalled();
+        jasmine.clock().tick(1);
+        expect(sample).toHaveBeenCalled();
+      });
+    });

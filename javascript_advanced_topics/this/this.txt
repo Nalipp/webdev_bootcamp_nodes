@@ -1,0 +1,218 @@
+****************************************************************************************************
+the keyword 'this'
+****************************************************************************************************
+
+*what is 'this' 
+*call apply bind
+
+****************************************************************************************************
+*what is 'this' 
+
+  'this' has to be created by a function that belongs to an object (the closest parent object)
+      a declared object is an object literal that contains a function that has the keyword 'this'
+
+
+  'this' -> a reserved keyword that is usually determined by how the a function is called / the functions execution context
+            when a function is executed two keywords are given to the function 
+              1. 'arguments'
+              2. 'this'
+
+            when 'this' is used inside of an object but not inside of a function, 
+            it still referes to the window because the 'this' keyword is given to a function not an object
+
+  4 ways to figure out what 'this' is
+    1. global               -> when 'this' is found outside of a declared object (bad)
+                               'this' refers to the global window unless 'this' has been defined withing a delcared object
+                               console.log('this') // window
+
+                               'use strict'
+                               accessing 'this' in the global scope is bad practice so 'use strict' was intruduced to prevent it
+                               if you try to attach a value to the this property in the global window in strict mode you will get 'type error'
+                               this.name = 'nate'  // type error
+
+    2. object / implicit    -> when 'this' has been declared inside an object (good)
+                                 example:  'this' refers to the object person
+
+                                   var person = {
+                                     name: 'nate',
+                                     greeting: function() {
+                                       return 'Hi ' + this.name;    // 'Hi nate'
+                                     },
+                                     determinContext: function() {
+                                       return this === person;      // true
+                                     },
+                                   }
+
+
+                                 example: implicit gone wrong
+                                   remember that 'this' must be initiated through the creation of a function
+                                   and refers to the nearest parent object (dog not the expected person)
+
+                                    var person = {
+                                      firstName: 'Colt',
+                                      sayHi: function() {
+                                        return 'Hi ' + this.firstName;
+                                      },
+                                      determineContext: function() {
+                                        return this === person;
+                                      },
+                                      dog: {
+                                        sayHello: function() {
+                                          return 'Hello ' + this.firstName;
+                                        },
+                                        determineContext: function() {
+                                          return this === person;
+                                        },
+                                      }
+                                    }
+
+                                    console.log(person.sayHi());                // 'Hi Colt'
+                                    console.log(person.determineContext());     // true
+                                    console.log(person.dog.sayHello());         // 'Hello undefined'
+                                    console.log(person.dog.determineContext()); // false
+                                                   
+
+    3. explicit
+    4. new
+
+
+****************************************************************************************************
+*call apply bind
+
+  'call', 'apply', 'bind'
+
+    each allow you to decide what you want the keword of 'this' to be (the 'this' arg)
+    it is easy to determine which object 'this' refers to with call, apply or bind because you get to set it as the first paremter to the funciton
+    the three methods can only be invoked on function
+
+      'thisArg' is the parameter that allows you to specify what you want 'this' to be
+      the parameters following the 'thisArg' allow you to pass in values to the function you are chinging 'this' in
+
+        'call' invokes the function immediatley           
+            -> parameters (thisArg, a, b, c, ...)    // accepts infinate parameters
+
+        'apply' invokes the function immediatley          
+            -> parameters (thisArg, [a, b, c, ...]) // accepts an array of infinate parameters
+
+        'bind' does NOT invoke the function immediatley   
+            -> parameters (thisArg, a, b, c, ...)
+               bind is similar to call but instead of immediate invocation if returns a function definition with the value of 'this' set to the 'thisArg'
+               bind if powerful because it allows you to create functions definitions with different values saved to the keyword 'this'
+               it is a building block for more advanced functional techniques like curring
+                  https://www.sitepoint.com/currying-in-functional-javascript/
+
+  examples :
+
+    ************************************************** 
+    'call & apply'
+
+      example 1:
+        let colt = {
+          fName: 'Colt',
+          sayHello: function() {
+            return 'Hello ' + this.fName;
+          }
+        }
+
+        let elie = {
+          fName: 'Elie',
+        }
+
+        console.log(colt.sayHello());            // 'Hello Colt'
+        console.log(colt.sayHello.apply(elie));   // 'Hello Elie'  (apply would work the same because we are not passing any arguments)
+          
+  
+      example 2:
+
+        function sayHi(a, b, c, d) {
+          for (let i = 0; i < (a + b + c + d); i++) {
+            console.log("Hi " + this.fName + (a + b));
+          }
+        }
+
+        let colt = {
+          fName: 'Colt',
+        }
+
+        let elie = {
+          fName: 'Elie',
+        }
+
+        sayHi.call(colt, 1, 1, 1, 1);    // repeats 4 times
+        sayHi.apply(elie, [2, 2, 2, 2]); // repeats 8 times
+
+
+    'use case for call is when turning data into an array'
+      when you are trying to slice something that is not actually an array
+
+        *arguments is an array like object
+
+        let sumArguments = () => {
+          let args = [].slice.call(arguments);
+          return args.reduce((a, b) => a + b);
+        }
+
+        var divs = document.getElementsById('div');
+        var divsArr = [].slice.call(divs);
+
+
+    'using apply() to convert arr to parameters'
+      example: built in function
+
+        var arr = [1, 2, 5, 4];
+        var max = Math.max(arr)
+        console.log(max);          // NaN
+
+        var max = Math.max.apply(this, arr);
+        console.log(max);          // 5
+
+
+      example: custom function
+        let add = (a, b, c) => {
+          return a + b + c;
+        }
+
+        var arr = [1, 2, 3];
+        console.log(add.apply(this, arr));
+
+
+    ************************************************** 
+    'bind'
+
+      bind works the same as 'call' but instead of returning the immediatley invoked function
+        bind return a function definition with the first arugment(thisArgument) specifying 'this'
+        this is useful when we don't know how many arguments are going to be passed to the function and don't want to envoke it immediatly
+        or when working with asyncronous code
+
+          function addNumbers(a, b, c, d) {
+            return 'hi ' + this.fName + 'just calculated ' + (a + b + c + d);
+          }
+
+          let elie = {
+            fName: 'elie ',
+          }
+
+          var functionDef = addNumbers.bind(elie, 1, 2, 3, 4);
+          console.log(functionDef());                              // 'hi elie calculated 10'
+
+          var functionDef = addNumbers.bind(elie, 1, 2);
+          console.log(functionDef(3, 3));                          // 'hi elie calculated 9'
+
+
+      'bind' asyncronous code example :
+
+        when calling set timeout you are passing a function as the first parameter and the time amount as the second
+        when that function is invoked 'this' referes to the window object
+
+          let colt = {
+            name: 'Colt',
+            delayedGreeting: function() {
+              console.log('outer this', this.name)    // Colt -> 'this' is the colt object
+              setTimeout(function() { 
+                console.log('inner this', this.name)  // undefined -> 'this' is executed at a later time in the window object not the colt objet
+              }.bind(this), 1000);                    // unless you bind the colt object, 
+            }                                              or 'this' object which referers to 'colt' at the time it was bound
+          }
+
+          colt.delayedGreeting();
+

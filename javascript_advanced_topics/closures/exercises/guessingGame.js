@@ -17,21 +17,73 @@ You should stop the user from guessing if the amount of guesses they have made i
 You will have to make use of closure to solve this problem.
 */
 
+// function guessingGame(amount){
+//   var answer = Math.floor(Math.random() * 11);
+//   var guesses = 0;
+//   return function (guess) {
+//     if (guesses >= amount) {
+//       return "All done playing!";
+//     guesses++;
+//     if(guess === answer) {
+//       guesses = Number.MAX_VALUE;
+//       return "You got it!";
+//     }
+//     if (guesses === amount) {
+//       return "No more guesses the answer was " + answer;
+//     }
+//     if (guess > answer) return "Your guess is too high!";
+//     if (guess < answer) return "Your guess is too low!";
+//   }
+// }
+
+// function guessingGame(amount){
+//   // var answer = Math.floor(Math.random() * 11);
+//   var answer = 5;
+//   var completed = false;
+//   var guesses = 0;
+//   return function(guess){
+//     if(!completed){
+//       guesses++;
+//       if(guesses === amount + 1){
+//         completed = true;
+//         return `No more guesses. The answer was ${answer}`;
+//       } else if(guess > answer){
+//         return `Your guess is too high`;
+//       } else if(guess < answer){
+//         return `Your guess is too low`;
+//       } else if(guess === answer){
+//         completed = true;
+//         return `You got it!`;
+//       }
+//     }
+//     return "all done playing";
+//   }
+// }
 function guessingGame(amount){
-  var answer = Math.floor(Math.random() * 11);
-  var guesses = 0;
-  return function (guess) {
-    if (guesses >= amount) {
-      return "All done playing!";
-    guesses++;
-    if(guess === answer) {
-      guesses = Number.MAX_VALUE;
-      return "You got it!";
+    var answer = Math.floor(Math.random()*11);
+    var guesses = 0;
+    var completed = false;
+    return function(guess){
+        if(!completed){
+            guesses++
+            if(guess === answer) {
+                completed = true;
+                return "You got it!"
+            }
+            else if(guesses === amount) {
+                completed = true;
+                return "No more guesses the answer was " + answer;
+            }
+            else if(guess > answer) return "Your guess is too high!"
+            else if(guess < answer) return "Your guess is too low!"
+        }
+        return "All done playing!"
     }
-    if (guesses === amount) {
-      return "No more guesses the answer was " + answer;
-    }
-    if (guess > answer) return "Your guess is too high!";
-    if (guess < answer) return "Your guess is too low!";
-  }
 }
+
+var game = guessingGame(3);
+console.log(game(1)); // "You're too low!"
+console.log(game(8)); // "You're too low!"
+console.log(game(7)); // "You got it!"
+console.log(game(5)); // "You got it!"
+console.log(game(5)); // "You got it!"

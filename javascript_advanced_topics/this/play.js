@@ -185,20 +185,66 @@
 // Write a function called once which accepts one parameter, another function. Once should return a new function that can only be invoked once.
 
 // Examples:
-function once(fn, thisArg){
-  var ifNew = 0;
-  return function addOnce(a, b) {
-    ifNew += 1;
-    if (ifNew === 1) return fn(a, b);
-    else return undefined;
-  }
+// function once(fn, thisArg){
+//   var ifNew = 0;
+//   return function addOnce(a, b) {
+//     ifNew += 1;
+//     if (ifNew === 1) return fn(a, b);
+//     else return undefined;
+//   }
+// }
+
+// function add(a,b){
+//   return a+b
+// }
+
+// var addOnce = once(add);
+// console.log(addOnce(2,2)); // 4
+// console.log(addOnce(2,2)); // undefined
+// console.log(addOnce(2,2)); // undefined
+
+// Examples:
+
+//     function firstNameFavoriteColor(favoriteColor){
+//         return this.firstName + "'s favorite color is " + favoriteColor
+//     }
+    
+//     var person = {
+//         firstName: 'Elie'
+//     }
+    
+//     var bindFn = bind(firstNameFavoriteColor, person);
+//     bindFn('green') // "Elie's favorite color is green"
+    
+//     var bindFn2 = bind(firstNameFavoriteColor, person, 'blue');
+//     bindFn2('green') // "Elie's favorite color is blue" 
+    
+//     function addFourNumbers(a,b,c,d){
+//         return a+b+c+d;
+//     }
+
+//     bind(addFourNumbers,this,1)(2,3,4) // 10
+//     bind(addFourNumbers,this,1,2)(3,4) // 10
+//     bind(addFourNumbers,this,1,2,3)(4) // 10
+//     bind(addFourNumbers,this,1,2,3,4)() // 10
+//     bind(addFourNumbers,this)(1,2,3,4) // 10
+//     bind(addFourNumbers,this)(1,2,3,4,5,6,7,8,9,10) // 10
+
+// */
+
+function bind(fn, thisArg){
+  console.log(arguments)
 }
 
-function add(a,b){
-  return a+b
+function addFourNumbers(a,b,c,d){
+  return a+b+c+d;
 }
 
-var addOnce = once(add);
-console.log(addOnce(2,2)); // 4
-console.log(addOnce(2,2)); // undefined
-console.log(addOnce(2,2)); // undefined
+bind(addFourNumbers,this,1) // 10
+
+// bind(addFourNumbers,this,1)(2,3,4) // 10
+// bind(addFourNumbers,this,1,2)(3,4) // 10
+// bind(addFourNumbers,this,1,2,3)(4) // 10
+// bind(addFourNumbers,this,1,2,3,4)() // 10
+// bind(addFourNumbers,this)(1,2,3,4) // 10
+// bind(addFourNumbers,this)(1,2,3,4,5,6,7,8,9,10) // 10

@@ -26,8 +26,8 @@ the keyword 'this'
                                console.log('this') // window
 
                                'use strict'
-                               accessing 'this' in the global scope is bad practice so 'use strict' was intruduced to prevent it
-                               if you try to attach a value to the this property in the global window in strict mode you will get 'type error'
+                               accessing 'this' in the global scope is bad practice so 'use strict' was introduced to prevent it
+                               if you try to attach a value to the 'this' property in the global window in strict mode you will get 'type error'
                                this.name = 'nate'  // type error
 
     2. object / implicit    -> when 'this' has been declared inside an object (good)

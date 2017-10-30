@@ -51,7 +51,7 @@ function invokeMax(fn, num){
   var counter = 0;
   return function(a, b) {
     counter += 1;
-    if (counter > num) return "Maxed Out!";
+    if (counter >= num) return "Maxed Out!";
     return fn(a, b);
   };
 }

@@ -1,0 +1,15 @@
+
+function Person(firstName, lastName, favoriteColor, favoriteNumber) {
+  this.firstName = firstName;
+  this.lastName = lastName;
+  this.favoriteColor = favoriteColor;
+  this.favoriteNumber = favoriteNumber;
+  this.multiplyFavoriteNumber = function(num) {
+    return this.favoriteNumber * num;
+  }
+}
+
+let person1 = new Person('Nate', 'Lipp', 'blue', 4);
+
+console.log(person1);
+console.log(person1.multiplyFavoriteNumber(5));

@@ -1,0 +1,233 @@
+****************************************************************************************************
+Object Oriented JavaScript
+
+  *classes
+  *prototype object
+  *prototype inheritance
+
+
+****************************************************************************************************
+*classes
+
+  javascript doesn't actually have classes 
+  without a Calss constructor method we can instead create our own constructor function with with the 'new' keyword that mimics a Class
+
+  when nameing a constructor function it is best practice to capitalize the first character
+  
+
+  example: constructor function
+
+    function House(bedrooms, bathrooms, squareFeet) {  // you cannot use the arrow function to create a constructor function
+      this.bedrooms = bedrooms;
+      this.bathrooms = bathrooms;
+      this.squareFeet = squareFeet;
+    }
+
+    let house1 = new House(2, 2, 1100);  // the keyword 'new' must be used because the function is not actually returning anything
+
+  **************************************************
+  the 'new' keyword
+
+    1. the 'new' keyword creates an empty object
+    2. and sets the keyword 'this' value to the empty object that was just created
+    3. it then adds 'this' as a return value of the function
+    4. finally it adds __proto__ to the empty object which links the prototype property on the constructor function (aka dunder proto property)
+
+    without using 'new' the function could work as long as you returned 'this' from the function 
+    however, 'this' would be the global window without using the 'new' keyword (bad)
+
+
+  **************************************************
+  re-using properties from a different object
+
+    function Car(make, model, year) {
+      this.make = make;
+      this.model = model;
+      this.year = year;
+      this.numWheels = 4;
+    }
+
+    function Motorcycle(make, model, year) {
+      // this.make = make;
+      // this.model = model;
+      // this.year = year;
+      Car.call(this, make, model, year);  // the properties of a different constructor function can be accessed with call (or apply) but remember to set the 
+      this.numWheels = 2;                 // value of the keyword 'this' 
+    }
+
+      //    Car.apply(this, [make, model, year])  // apply can also be used
+      //    Car.apply(this, arguments)            // or you can just pass the agruments keyword (which hass access to all of the agruments)
+
+    let car1 = new Car('chevy', 'malibu', 2012);
+    let motorcycle1 = new Motorcycle('harley', 'cruiser', 1980);
+
+    console.log(car1);
+    console.log(motorcycle1);
+
+
+****************************************************************************************************
+*prototype object
+
+  in javaScript every single function has a property called 'prototype'
+    the 'prototype' is an object
+    all objects inherit their properties and methods from their prototype
+
+  javaScript is not an object oriented programing langauge
+    the prototype allows you to mimic inheritance using objects and functions
+
+  Objects created using an object literal, or with new Object(), inherit from a prototype called Object.prototype.
+  Objects created with new Date() inherit the Date.prototype.
+  The Object.prototype is on the top of the prototype chain.
+  All JavaScript objects (Date, Array, RegExp, Function, ....) inherit from the Object.prototype.
+
+
+  the 'new' keyword
+
+    when using the 'new' keyword an additional property, the 'dunder proto' (__proto__) is also created
+    __proto__ points to the 'prototype' property of the constructor function
+    __proto__ also has a property of 'constructor' that points back to the actual constructor function
+
+    example :
+
+      function Person(name) {
+        this.name = name;
+        // this.sayHi = function() {
+        //   return 'Hi ' + this.name + '!';
+        // }
+      }
+
+      Person.prototype.sayHi = function() {
+        return 'Hi ' + this.name + '!';
+      }
+
+      person1 = new Person('nate');
+
+      console.log(person1.sayHi());
+
+
+    example 2 :
+
+      function Vehicle(make, model, year) {
+        this.make = make;
+        this.model = model;
+        this.year = year;
+        this.isRunning = false;   // all of these properties are unique instance of the constructor function 
+      }
+
+      Vehicle.prototype.turnOn = function() {  
+        this.isRunning = true;                 
+      }
+
+      Vehicle.prototype.turnOff = function() { 
+        this.isRunning = false;
+      }
+
+      Vehicle.prototype.honk = function() {
+        if (this.isRunning === true) return 'beep!';
+      }
+
+      vehicle1 = new Vehicle('chevy', 'malibu', 2012);
+
+      console.log(vehicle1);           // the entire object
+      console.log(vehicle1.honk());    // undefined
+      console.log(vehicle1.isRunning); // false
+      console.log(vehicle1.turnOn());  // undefined
+      console.log(vehicle1.isRunning); // true
+      console.log(vehicle1.honk());    // beep!
+
+
+    if the property is not unique to the instance of the constructor function that can be attached to the prototype object
+    this is better for functions because you don't want to create a new function for each instace that is created, instead they can be shared with prototype
+
+    functions can also be restricted to only accept objects that have ben constructed with a specific class by using the 'instanceof' keyword
+
+      Person.prototype.addToFamily = function(person) {
+        if (this.family.indexOf(person) === -1 && person instanceof Person) {
+          this.family.push(person);
+        }
+        return this.family.length;
+      };
+           
+
+****************************************************************************************************
+*prototype inheritance
+
+  inheritance is the process of passing methods or properties from one class to another
+
+  in javaScript instead of classes we have construtor functions
+    so instead of passing one constructor to another we can pass the prototype object from one constructor to another constructor
+    however this is trickier than it sounds because if you simply point an object to a previous object it will make refrence to it instead of a new copy
+
+    example :
+      // we want Student to inherit everything from Person so we use Person.apply(this, arguments)
+
+    function Person(firstName, lastName) {
+      this.firstName = firstName;
+      this.lastName = lastName;
+    }
+
+    Person.prototype.sayHi = function() {
+      return 'Hi ' + this.firstName + ' ' + this.lastName + '!';
+    }
+
+    function Student() {
+      Person.apply(this, arguments);
+    }
+
+      // however Student does not inherit the Person.prototype (it has its own Student.protytpe that was created with new Student())
+
+      console.log(Person.prototype);  // Person {}
+      console.log(Student.prototype); // Student {}
+
+      // so we must assign the Student.prototype to a copy of the Person.prototype, but there is a problem because objects are mutable
+
+      Student.prototype = Person.prototype
+
+      // this now means that if the Student.prototype is changed it will actually be changing the Person.prototype
+
+    // Student.prototype.status = function() {  // we actually need to move this below the Student.prototype re-assignment
+    //   return "I'm currently a student";
+    // }
+
+      console.log(Person.prototype);  // Person { sayHi: [Function], status: [Function] }  
+      console.log(Student.prototype); // Person { sayHi: [Function], status: [Function] }  // points to the same object
+
+      // we obviously want Student.prototype to have it's own Object so that it doesn't affect the parent Person.prototype Object
+      // to do this we can set Student.prototype to a newley created object instanciated with the Person.prototype properties
+
+    Student.prototype = Object.create(Person.prototype);
+
+      // notice we are using 'Object.create()' instead of 'new Object()' this is because 'new' will create a new prototype object that we don't need
+
+    Student.prototype.status = function() {
+      return "I'm currently a student";
+    }
+      
+      // this is still not finished (there are two steps to prototypical inheritance)
+      // in the foolowing result notice the assignment of Student.prototype.status now dosen't affect the 'Person.prototype' object
+
+      console.log(Person.prototype);  // Person { sayHi: [Function] }  
+      console.log(Student.prototype); // Person { status: [Function] }   // but the Student.prototype is still set to the Person instead of Stduent
+
+  // **************************************************
+  // two steps for prototypical inheritance
+
+  // 1. set the functions prototype object to the function that it is inheriting from with 
+  //      <childFunction>.prototype = Object.create(<ParentFunction>.prototype)
+  // 2. reset the prototype constructor property 
+  //      <childFunction>.prototype.constructor = <childFunction>
+
+  //**************************************************
+    
+    Student.prototype.constructor = Student
+
+      console.log(Person.prototype); // Person { sayHi: [Function] }
+      console.log(Student.prototype); // Student { constructor: [Function: Student], status: [Function] }
+
+      // everything is complete
+      
+
+
+
+
+

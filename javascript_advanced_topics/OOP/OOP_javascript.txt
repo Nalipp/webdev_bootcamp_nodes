@@ -226,8 +226,12 @@ Object Oriented JavaScript
 
       // everything is complete
       
+    
+  //**************************************************
+  // the dunder prototype
+  // allows access to the function constructors (classes) that the current protoype is inheriting from
 
+    console.log(Person.prototype.__proto__);    // {}
+    console.log(Student.prototype.__proto__);   // Person { sayHi: [Function] }
 
-
-
-
+  //**************************************************

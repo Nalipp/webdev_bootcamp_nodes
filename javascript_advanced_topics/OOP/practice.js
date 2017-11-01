@@ -191,7 +191,18 @@
       // everything is complete
       
 
+    console.log('Person.prototype.__proto__', Person.prototype.__proto__);    // {}
+    console.log('Student.prototype.__proto__', Student.prototype.__proto__);  // Person { sayHi: [Function] }
 
+    console.log('--------------------------------------------------'); 
 
+    // it dosen't matter where you set up the prototypical inheritance (before or after the assignment of functions to the parent element)
+    // all changes made to the parent prototype object will reflect in child constructor functions
 
+    Person.prototype.walk = function() {
+      return this.firstName + ' is now walking';
+    }
+
+    let person1 = new Person('nate', 'lipp');
+    console.log(person1.walk());
 

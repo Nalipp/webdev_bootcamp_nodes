@@ -42,4 +42,3 @@ function Motorcycle() {
 
 Motorcycle.prototype = Object.create(Vehicle.prototype);
 Motorcycle.prototype.constructor = Motorcycle;
-

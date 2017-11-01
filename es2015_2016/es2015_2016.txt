@@ -1,0 +1,95 @@
+****************************************************************************************************
+es_2015
+
+  *const
+  *let
+
+****************************************************************************************************
+*const
+
+  prevents to from redeclaring a primitive varialbe
+    primitive data types cannot be changes (this includes strings, numbers, pretty much everything except objects)
+    objects can have their values redefined (this also includes array like objects)
+
+****************************************************************************************************
+*let
+  
+  let also prevents you from redeclaring a variable but you are allowed to change the value of the variable later you just can't redeclare it
+
+
+  **************************************************
+  block scope 
+
+    let creates a new scope for you called block scope
+
+    when using 'var' inside a block statement such as if, while, for etc
+      the var leaks into the surrounding scope.
+
+    the surrounding scope does not ahve access to variables declared with let inside of a block
+    (const has the same behavior)
+
+
+  **************************************************
+  hoisting
+
+    let behaves differently with hoisting than var
+    let hoists just like var but instead of returning undefined you recieve an error
+
+    example : var
+
+      function hoist() {
+        return name;
+        var name = 'nate'
+      }
+
+      hoist() // undefined
+
+
+    example : let
+
+      function hoist() {
+        return name;
+        var name = 'nate'
+      }
+
+      hoist() // ReferenceError: name is not defined
+
+    with let when the declarations is hoisted the are inside a TDZ (temporal dead zone) where we don't have access to their values yet
+
+  **************************************************
+  the setTimeout problem (or any other asyncronous code)
+
+    before let there was a problem with var declarations inside of a for loop
+
+    for (var i = 0; i < 3; i++) {
+      setTimeout(function() {
+        console.log(i);
+      },1000 )
+    }
+
+    // 3
+    // 3
+    // 3
+
+    instead of loging 
+
+    // 0
+    // 1
+    // 2
+
+    this is because var is leaking into the surrounding scope, the entire for loop is placed on the stack before the event que is executed
+    by that time i is 3
+
+    the old fix was to create a new scope by wrapping the setTimeout with an immediatley invoked function and passing the i value inside the scope
+
+    for (var i = 0; i < 3; i++) {
+      (function(j) {
+        setTimeout(function() {
+          console.log(j);
+        });
+      })(i)
+    }
+
+    but now since used block scoping that is not necessary
+    remember let still hoists but will cause a reference error if it has not been defined yet (instead of returning 'undefined')
+

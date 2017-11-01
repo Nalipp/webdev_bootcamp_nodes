@@ -3,6 +3,7 @@ es_2015
 
   *const
   *let
+  *arrow functions
 
 ****************************************************************************************************
 *const
@@ -93,3 +94,77 @@ es_2015
     but now since used block scoping that is not necessary
     remember let still hoists but will cause a reference error if it has not been defined yet (instead of returning 'undefined')
 
+
+****************************************************************************************************
+*arrow functions
+
+  gatchas
+
+    arrow functions do not have the keyword 'this' or keyword 'arguments'
+    in an arrow function the value of 'this' gets its original meaning from the enclosing function
+    this means the value is whatever the value of 'this' would be right outside of the arrow function
+
+
+  example with function()
+
+    let greeting = {
+      name : 'nate',
+      greet : function() {
+        setTimeout(function() {
+          console.log(`Hi there ${this.name}`);
+        }.bind(this), 1000);
+      }
+    }
+
+    greeting.greet();  // Hi there undefined
+
+    remember bind is used to apply whatever value you wnat for this 
+      (in this case it is 'instructor' but it is better practice to use 'this' just in case the instructor variable name is changed in the future)
+
+    if you don't use bind(), when setTimeout is finally ran it will reference the global window
+    bind is used insead of call or apply because we do not want to immediatley invoke the function
+
+
+    example with () =>
+    
+      let greeting = {
+        name : 'nate',
+        greet : function() {
+          setTimeout( () => {
+            console.log(`Hi there ${this.name}`);
+          }, 1000);
+        }
+      }
+
+      greeting.greet();  // Hi there undefined
+
+      using the arrow function we get the expected result without using bind this is because
+      'this' is set to the enclosing context
+
+      remember the arrow function does not get a new keyword 'this' it just automatically referes to the nearest object that encloses it
+
+
+    gotcha : ** arrow functions should not be used as methods in objects **
+
+      let greeting = {
+        name: 'nate',
+        greet: () => {
+          setTimeout( () => {
+            console.log(`Hi there ${this.name}`);
+          }, 1000);
+        }
+      }
+
+      greeting.greet();  // Hi there undefined
+
+      remember an arrow function does not have a 'this' keyword meaning no refference to the surrounding object, instead it refers the global object
+
+
+
+    gotcha : arrow functions and arguments
+
+    let talk = (word1, word2) => {
+      console.log(arguments);
+    }
+
+    talk('hi', 'bye'); // this will not log the arguments as expected

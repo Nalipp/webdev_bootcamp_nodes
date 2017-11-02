@@ -302,3 +302,78 @@
 
 // student1 = new Student('nate', 'lipp');
 // console.log(Student.isStudent(student1));
+
+
+// function Person(firstName, lastName) {
+//   this.firstName = firstName;
+//   this.lastName = lastName;
+// }
+
+// function Student() {
+//   Person.apply(this, arguments);
+// }
+
+// Person.prototype.sayHi = function() {
+//   return `Hi, ${this.firstName} ${this.lastName}`;
+// }
+
+// Student.prototype = Object.create(Person.prototype);
+// Student.prototype.constructor = Student;
+
+// Student.prototype.greetInstructor = function() {
+//   return `Hello Professor`;
+// }
+
+// let student1 = new Student('nate', 'lipp');
+// console.log(student1.greetInstructor());     // Hello instructor
+// console.log(Person.prototype);               // Person {...}
+// console.log(Student.prototype);              // Studet {...}
+
+// class Person {
+//   constructor(firstName, lastName) {
+//     this.firstName = firstName;
+//     this.lastName = lastName;
+//   }
+//   sayHi() {
+//     return `Hi, ${this.firstName} ${this.lastName}`;
+//   }
+// }
+
+// class Student extends Person {
+//   // constructor(firstName, lastName) {
+//   //   super(firstName, lastName);
+//   // }
+//   greetFriend() {
+//     return `You can call me ${this.firstName}`;
+//   }
+// }
+
+// let student1 = new Student('nate', 'lipp');
+// console.log(student1.greetFriend());     // You can call me nate
+
+
+I noticed that when creating a class that inherits from another class with the keyword 'extends'​ the code works without using super. 
+
+In the following code the constructor and super is commented out but still creates a new Student class with the same instance variables as the parent Person class.
+Even though the code works are there any negative implications of just using extends and not super?
+class Person {
+  constructor(firstName, lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+  sayHi() {
+    return `Hi, ${this.firstName} ${this.lastName}`;
+  }
+}
+
+​class Student extends Person {
+  // constructor(firstName, lastName) {
+  //   super(firstName, lastName);
+  // }
+  greetFriend() {
+    return `You can call me ${this.firstName}`;
+  }
+}
+
+​let student1 = new Student('nate', 'lipp');
+console.log(student1.greetFriend());     // You can call me nate

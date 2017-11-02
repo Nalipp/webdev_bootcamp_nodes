@@ -8,6 +8,7 @@ es_2015
   *rest opperator
   *destructuring (objects and arrays)
   *class
+  *inheritance
 
 
 ****************************************************************************************************
@@ -585,3 +586,91 @@ es_2015
         }
       }
 
+
+****************************************************************************************************
+*inheritance
+
+  --old way--
+
+
+    function Person(firstName, lastName) {
+      this.firstName = firstName;
+      this.lastName = lastName;
+    }
+
+    function Student() {
+      Person.apply(this, arguments);
+    }
+
+    Person.prototype.sayHi = function() {
+      return `Hi, ${this.firstName} ${this.lastName}`;
+    }
+
+    Student.prototype = Object.create(Person.prototype);
+    Student.prototype.constructor = Student;
+
+    Student.prototype.greetInstructor = function() {
+      return `Hello Professor`;
+    }
+
+    let student1 = new Student('nate', 'lipp');
+    console.log(student1.sayHi());               // Hi nate lipp
+    console.log(student1.greetInstructor());     // Hello instructor
+    console.log(Person.prototype);               // Person {...}
+    console.log(Student.prototype);              // Studet {...}
+
+
+  --new way--
+
+    class Person {
+      constructor(firstName, lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+      }
+      sayHi() {
+        return `Hi, ${this.firstName} ${this.lastName}`;
+      }
+    }
+
+    class Student extends Person {
+      greetInstructor() {
+        return `Hello Professor`;
+      }
+    }
+
+
+    ************************************************** 
+    super
+
+      super allows you to access the arguments of the parent class
+
+        example:
+
+        
+        class Vehicle {
+          constructor (make, model, year) {
+            this.make = make;
+            this.model = model;
+            this.year = year;
+          }
+          start() {
+            return 'VROOM!';
+          }
+          toString() {
+            return `The make, model, and year are ${this.make} ${this.model} ${this.year}`
+          }
+        }
+
+        class Car extends Vehicle {
+          constructor() {
+            super(...arguments)
+            this.numWheels = 4;
+          }
+        }
+
+        class Motorcycle extends Vehicle {
+          constructor() {
+            super(...arguments)
+            this.numWheels = 2;
+          }
+        }

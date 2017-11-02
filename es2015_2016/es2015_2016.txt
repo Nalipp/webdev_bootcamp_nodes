@@ -9,6 +9,8 @@ es_2015
   *destructuring (objects and arrays)
   *class
   *inheritance
+  *maps
+  *sets
 
 
 ****************************************************************************************************
@@ -674,3 +676,50 @@ es_2015
             this.numWheels = 2;
           }
         }
+
+
+****************************************************************************************************
+*maps
+
+  similar to objects except the keyword can be any datatype (not just strings)
+  you can also iterate over a map using a 'forEach' method or 'for of' loop since maps have a symbol.iterator
+  maps also have a size property (so you don't have to create a keys array and check the size)
+  it is easier to add or remove keys from a map (especially if you are working with multiple keys at a time)
+  maps also let you acess all the keys and values!
+    map1.keys();
+    map1.values();
+
+    example :
+      create an array from the values of a map
+
+      Array.from(map.values());  // (Array.from is from core javascript and makes an array from an array like object)
+
+  ************************************************** 
+  weakmap
+
+    similar to a map except all keys must be objects (not primitives)
+    a weakmap has better performance that maps but they cannot be iterated over
+
+
+****************************************************************************************************
+*sets
+
+  a data structure where ale values are unique
+  any value can be placed in a set
+  best used when you don't care about the ordering of values and you don't need to use keys
+
+  example :
+    you can pass an array to a set and it will store each value
+
+    let set = new Set([2, 5, 7, 8, 3])
+
+    set.add(5);         // adding multiple 5's will be ignored
+    console.log(set);   // [2, 5, 7, 8, 3] 
+
+    set.size            // 5
+
+  ************************************************** 
+  weakset
+
+    similar to a map except all keys must be objects (not primitives)
+    a weakset has better performance that maps but they cannot be iterated over

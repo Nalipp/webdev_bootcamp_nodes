@@ -352,28 +352,30 @@
 // console.log(student1.greetFriend());     // You can call me nate
 
 
-I noticed that when creating a class that inherits from another class with the keyword 'extends'​ the code works without using super. 
+// let set = new Set([2, 5, 7, 8, 3])
 
-In the following code the constructor and super is commented out but still creates a new Student class with the same instance variables as the parent Person class.
-Even though the code works are there any negative implications of just using extends and not super?
-class Person {
-  constructor(firstName, lastName) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-  }
-  sayHi() {
-    return `Hi, ${this.firstName} ${this.lastName}`;
-  }
+// set.add(5);
+// console.log(set); 
+
+// console.log(set.size)          // 5
+
+
+function countPairs(arr, sum){
+  let count = 0;
+  let map = new Map();
+
+  arr.forEach((v) => {
+    let neededVal = sum - v;
+    if (map.has(neededVal)) count += 1;
+    if (!map.has(v)) map.set(v, neededVal)
+  });
+  return count;  
 }
 
-​class Student extends Person {
-  // constructor(firstName, lastName) {
-  //   super(firstName, lastName);
-  // }
-  greetFriend() {
-    return `You can call me ${this.firstName}`;
-  }
-}
-
-​let student1 = new Student('nate', 'lipp');
-console.log(student1.greetFriend());     // You can call me nate
+console.log(countPairs([8,2,6,4,10,0],10)); // 3
+console.log(countPairs([8,2],10)); // 1
+console.log(countPairs([1,2],10)); // 0
+console.log(countPairs([1,2,3,4,5],10)); // 0
+console.log(countPairs([],10)); // 0
+console.log(countPairs([5,4,-10,6,-20,16],-4)); // 2
+console.log(countPairs([0,-4],-4)); // 1

@@ -360,22 +360,24 @@
 // console.log(set.size)          // 5
 
 
-function countPairs(arr, sum){
-  let count = 0;
-  let map = new Map();
+// function countPairs(arr, sum){
+//   let count = 0;
+//   let map = new Map();
 
-  arr.forEach((v) => {
-    let neededVal = sum - v;
-    if (map.has(neededVal)) count += 1;
-    if (!map.has(v)) map.set(v, neededVal)
-  });
-  return count;  
-}
+//   arr.forEach((v) => {
+//     let neededVal = sum - v;
+//     if (map.has(neededVal)) count += 1;
+//     if (!map.has(v)) map.set(v, neededVal)
+//   });
+//   return count;  
+// }
 
-console.log(countPairs([8,2,6,4,10,0],10)); // 3
-console.log(countPairs([8,2],10)); // 1
-console.log(countPairs([1,2],10)); // 0
-console.log(countPairs([1,2,3,4,5],10)); // 0
-console.log(countPairs([],10)); // 0
-console.log(countPairs([5,4,-10,6,-20,16],-4)); // 2
-console.log(countPairs([0,-4],-4)); // 1
+// console.log(countPairs([8,2,6,4,10,0],10)); // 3
+// console.log(countPairs([8,2],10)); // 1
+// console.log(countPairs([1,2],10)); // 0
+// console.log(countPairs([1,2,3,4,5],10)); // 0
+// console.log(countPairs([],10)); // 0
+// console.log(countPairs([5,4,-10,6,-20,16],-4)); // 2
+// console.log(countPairs([0,-4],-4)); // 1
+
+

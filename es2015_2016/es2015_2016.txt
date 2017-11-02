@@ -11,6 +11,7 @@ es_2015
   *inheritance
   *maps
   *sets
+  *promises
 
 
 ****************************************************************************************************
@@ -723,3 +724,10 @@ es_2015
 
     similar to a map except all keys must be objects (not primitives)
     a weakset has better performance that maps but they cannot be iterated over
+
+
+****************************************************************************************************
+*promises
+
+  a promise is a one time guarantee of some future return value
+    the promise if either resolved or rejected

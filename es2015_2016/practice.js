@@ -212,14 +212,93 @@
 // console.log(b);
 // console.log(c);
 
-function returnNumbers(a, b) {
-  return [a, b];
-}
+// function returnNumbers(a, b) {
+//   return [a, b];
+// }
 
-var first = returnNumbers(5, 10)[0];
-var second = returnNumbers(5, 10)[1];
+// var first = returnNumbers(5, 10)[0];
+// var second = returnNumbers(5, 10)[1];
 
-[first, second] = returnNumbers(5, 10);
+// [first, second] = returnNumbers(5, 10);
 
-console.log(first);  // 5
-console.log(second); // 10
+// console.log(first);  // 5
+// console.log(second); // 10
+
+
+// function Student(firstName, lastName) {
+//   this.firstName = firstName;
+//   this.lastName = lastName;
+// }
+
+// let student1 = new Student('nate', 'lipp');
+
+// console.log(student1); 
+
+// class Student {
+//   constructor(firstName, lastName) {
+//     this.firstName = firstName;
+//     this.lastName = lastName;
+//   }
+// }
+ 
+// let student1 = new Student('nate', 'lipp');
+// console.log(student1); 
+// function Student(firstName, lastName) {
+//   this.firstName = firstName;
+//   this.lastName = lastName;
+// }
+
+// Student.prototype.sayHi = function() {
+//   return `Hi ${this.firstName} ${this.lastName}`
+// }
+
+// let student1 = new Student('nate', 'lipp');
+// console.log(student1);
+// console.log(student1.sayHi());
+
+// class Student {
+//   constructor(firstName, lastName) {
+//     this.firstName = firstName;
+//     this.lastName = lastName;
+//   }
+//   sayHi() {
+//     return `Hi ${this.firstName} ${this.lastName}`
+//   }
+// }
+
+// // Student.prototype.sayHi = function() {
+// //   return `Hi ${this.firstName} ${this.lastName}`
+// // }
+
+// let student1 = new Student('nate', 'lipp');
+// console.log(student1);
+// console.log(student1.sayHi());
+
+// function Student(firstName, lastName) {
+//   this.firstName = firstName;
+//   this.lastName = lastName;
+// }
+
+// Student.prototype.sayHi = function() {               // this is not a method being applied to the entire class (class method)
+//   return 'Hi ' + this.firstName + this.lastName;
+// }
+
+// Student.isStudent = function(obj) {                  // this is a class method
+//   return obj.constructor === Student;
+// }
+
+// student1 = new Student('nate', 'lipp');
+// console.log(Student.isStudent(student1));
+
+// class Student {
+//   constructor(firstName, lastName) {
+//     this.firstName = firstName; 
+//     this.lastName = lastName; 
+//   }
+//   static isStudent(obj) {
+//     return obj.constructor === Student;
+//   }
+// }
+
+// student1 = new Student('nate', 'lipp');
+// console.log(Student.isStudent(student1));

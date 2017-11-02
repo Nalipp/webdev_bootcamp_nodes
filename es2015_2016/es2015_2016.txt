@@ -6,7 +6,9 @@ es_2015
   *arrow functions
   *for of loops
   *rest opperator
-  *destructuring
+  *destructuring (objects and arrays)
+  *class
+
 
 ****************************************************************************************************
 *const
@@ -354,7 +356,7 @@ es_2015
 
 
 ************************************************** 
-*destructuring
+*destructuring (objects and arrays)
 
   ************************************************** 
   destructuring objects
@@ -472,3 +474,114 @@ es_2015
       function swap(a, b) {
         return [a, b] = [b, a];
       }
+
+
+****************************************************************************************************
+*class
+
+  javaScript does not have build in support for classes so instead we mimick this behavior using the reserved keyword 'class'
+  instead of classes javaScript uses constructor functions and attaches methods to the prototype property of the constrctor function
+  the 'class' keyword creates a constant that cannot be redeclared (these do not hoist and should be defined at the top of the file)
+  'new' is still used to create objects
+
+    example : 
+      'class' has a construtor function that will run automatically to instanciate any variables
+
+      --old way--
+
+        function Student(firstName, lastName) {
+          this.firstName = firstName;
+          this.lastName = lastName;
+        }
+
+        let student1 = new Student('nate', 'lipp');
+
+
+      --new way--
+
+        class Student {
+          constructor(firstName, lastName) {
+            this.firstName = firstName;
+            this.lastName = lastName;
+          }
+        }
+
+        let student1 = new Student('nate', 'lipp');
+
+
+  ************************************************** 
+  instance methods
+
+    in object oriented programing an instance method is a method that is available to any instance(copy) of the class
+    before es2015 we placed methods onto the prototype object to prevent them from being redefined each time a copy of the class was instanciated
+      the constructor function could not diferetiate between common methods and instance variables that are unique to the copy of the class
+      but now since we have a constructor function we can simply place the instance methods outside the constructor function
+
+      --old way--
+
+        function Student(firstName, lastName) {
+          this.firstName = firstName;
+          this.lastName = lastName;
+        }
+
+        Student.prototype.sayHi = function() {
+          return `Hi ${this.firstName} ${this.lastName}`
+        }
+
+      --new way--
+
+        class Student {
+          constructor(firstName, lastName) {
+            this.firstName = firstName;
+            this.lastName = lastName;
+          }
+          sayHi() {
+            return `Hi ${this.firstName} ${this.lastName}`
+          }
+        }
+
+      the creation of the sayHi method is not being redefined each time we create an object from the Student class 
+        because it is outside the constructor function
+
+
+  **************************************************
+  class methods (methods directly on the class)
+
+    class methods (static methods) apply on the entire class 
+    these methods are placed directly on the class
+      -> Array.isArray is an example of a class method build into the Array constructor function
+
+    example : 
+
+      --old way--
+
+        function Student(firstName, lastName) {
+          this.firstName = firstName,
+          this.lastName = lastName,
+        }
+
+        Student.prototype.sayHi = function() {               // this is not a method being applied to the entire class (class method)
+          return 'Hi ' + this.firstName + this.lastName;
+        }
+
+        Student.isStudent = function(obj) {                  // this is a class method (see below)
+          return obj.constructor === Student;
+        }
+
+        student1 = new Student('nate', 'lipp');
+        console.log(Student.isStudent(student1));            // notice we are applying isStdudent to the Student class (this is why it is a class method)
+
+
+    --new way--
+    uses the static keyword
+
+      class Student {
+        constructor(firstName, lastName) {
+          this.firstName = firstName; 
+          this.lastName = lastName; 
+        }
+        static isStudent(obj) {
+          return obj.constructor === Student;
+        }
+      }
+

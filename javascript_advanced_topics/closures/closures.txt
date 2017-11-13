@@ -47,8 +47,8 @@ closures and this
 
       example :
 
-        let classRoom = () => {
-          let instructors = ['Elie', 'Colt'];
+        var classRoom = () => {
+          var instructors = ['Elie', 'Colt'];
           return {
             getInstructors: () => {
               return instructors;
@@ -60,13 +60,15 @@ closures and this
           }
         }
 
-        let javaScript101 = classRoom();
+        var javaScript101 = classRoom();
 
-        console.log(javaScript101.getInstructors());
-        console.log(javaScript101.addInstructors('Nate'));
+        console.log(javaScript101.getInstructors());        // [ 'Elie', 'Colt' ]
+        console.log(javaScript101.addInstructors('Nate'));  // [ 'Elie', 'Colt', 'Nate' ]
 
-        let node101 = classRoom();
-        console.log(node101.getInstructors());
+        var node101 = classRoom();
+        console.log(node101.getInstructors());              // [ 'Elie', 'Colt', 'Nate' ]
+
+        classRoom.getInstructors = "you got hacked"         // oops you have access to the enclosed variable, you need to create immutability (see next)
 
 
   **************************************************

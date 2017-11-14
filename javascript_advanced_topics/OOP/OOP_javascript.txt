@@ -4,6 +4,7 @@ Object Oriented JavaScript
   *classes
   *prototype object
   *prototype inheritance
+    *the dunder prototype __proto__
 
 
 ****************************************************************************************************
@@ -46,6 +47,8 @@ Object Oriented JavaScript
       this.year = year;
       this.numWheels = 4;
     }
+
+
 
     function Motorcycle(make, model, year) {
       // this.make = make;
@@ -213,10 +216,9 @@ Object Oriented JavaScript
   // two steps for prototypical inheritance
 
   // 1. set the functions prototype object to the function that it is inheriting from with 
-  //      <childFunction>.prototype = Object.create(<ParentFunction>.prototype)
+  //      Student.prototype = Object.create(Person.prototype)
   // 2. reset the prototype constructor property 
-  //      <childFunction>.prototype.constructor = <childFunction>
-
+  //      Student.prototype.constructor = Student
   //**************************************************
     
     Student.prototype.constructor = Student
@@ -227,11 +229,11 @@ Object Oriented JavaScript
       // everything is complete
       
     
-  //**************************************************
-  // the dunder prototype
-  // allows access to the function constructors (classes) that the current protoype is inheriting from
+  **************************************************
+  *the dunder prototype
+   allows access to the function constructors (classes) that the current protoype is inheriting from
 
     console.log(Person.prototype.__proto__);    // {}
     console.log(Student.prototype.__proto__);   // Person { sayHi: [Function] }
 
-  //**************************************************
+  **************************************************

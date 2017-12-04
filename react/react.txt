@@ -6,6 +6,9 @@ react
 *components
 *JSX
 *multiple components
+*create react app
+*import export 
+*props
 
 ****************************************************************************************************
 *intro
@@ -199,3 +202,55 @@ react
         ReactDOM.render(<Pet />, document.getElementById('app'));
       </script>
     </body>
+
+
+****************************************************************************************************
+*create react app
+
+  allows you to create a react app quickly
+
+  $ create-react-app <app name>
+
+  **************************************************
+  webpack
+
+    webpack is already configured when running create-react-app
+
+    the public folder
+      -> contains files that don't go through the webpack build process
+           this is where we keep the index.html page that is delivered to the client
+
+****************************************************************************************************
+*import export 
+
+  there are two different ways to import and export data (using default or non-default)
+
+    default (does not require the curly braces)
+      import App from './App';                 export default App;
+      import Pizza from './App';               export default App;    // the name can be changes
+
+    non-default
+      import { App } from './App';             export { App };
+      import { App as Pizza } from './App';    export { App };        // the name needs 'as' in order to be changed
+
+    
+
+**************************************************************************************************** 
+*props
+
+  props are accessible in a component through the object this.props
+    this referes to the instance of the class (component)
+
+    class Pet extends Component {
+      return <div>{this.props.text}</div>
+    }
+
+    we can alter the text when we render the component by passing in the text as an attribute
+    <Pet text="I am text"/>
+
+  props is used to hold immutable data
+    xthis.props = 'happy'      // you cannot change the text (typeError)
+    xthis.props = {}           // you can do this but it is not good practice
+    xthis.props.newProp = 'hi' // also works but you shouldn't do it
+
+

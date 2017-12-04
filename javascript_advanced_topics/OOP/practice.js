@@ -123,86 +123,91 @@
 
 
 
-      // we want Student to inherit everything from Person so we use Person.apply(this, arguments)
+      // // we want Student to inherit everything from Person so we use Person.apply(this, arguments)
 
-    function Person(firstName, lastName) {
-      this.firstName = firstName;
-      this.lastName = lastName;
-    }
-
-    Person.prototype.sayHi = function() {
-      return 'Hi ' + this.firstName + ' ' + this.lastName + '!';
-    }
-
-    function Student() {
-      Person.apply(this, arguments);
-    }
-
-      // however Student does not inherit the Person.prototype (it has its own Student.protytpe that was created with new Student())
-
-      console.log(Person.prototype);  // Person {}
-      console.log(Student.prototype); // Student {}
-
-      // so we must assign the Student.prototype to a copy of the Person.prototype, but there is a problem because objects are mutable
-
-      Student.prototype = Person.prototype
-
-      // this now means that if the Student.prototype is changed it will actually be changing the Person.prototype
-
-    // Student.prototype.status = function() {
-    //   return "I'm currently a student";
+    // function Person(firstName, lastName) {
+      // this.firstName = firstName;
+      // this.lastName = lastName;
     // }
 
-      console.log(Person.prototype);  // Person { sayHi: [Function], status: [Function] }  
-      console.log(Student.prototype); // Person { sayHi: [Function], status: [Function] }  // points to the same object
+    // Person.prototype.sayHi = function() {
+      // return 'Hi ' + this.firstName + ' ' + this.lastName + '!';
+    // }
 
-      // we obviously want Student.prototype to have it's own Object so that it doesn't affect the parent Person.prototype Object
-      // to do this we can set Student.prototype to a newley created object instanciated with the Person.prototype properties
+    // function Student() {
+      // Person.apply(this, arguments);
+    // }
 
-    Student.prototype = Object.create(Person.prototype);
+      // // however Student does not inherit the Person.prototype (it has its own Student.protytpe that was created with new Student())
 
-      // notice we are using 'Object.create()' instead of 'new Object()' this is because 'new' will create a new prototype object that we don't need
+      // console.log(Person.prototype);  // Person {}
+      // console.log(Student.prototype); // Student {}
 
-    Student.prototype.status = function() {
-      return "I'm currently a student";
-    }
+      // // so we must assign the Student.prototype to a copy of the Person.prototype, but there is a problem because objects are mutable
+
+      // Student.prototype = Person.prototype
+
+      // // this now means that if the Student.prototype is changed it will actually be changing the Person.prototype
+
+    // // Student.prototype.status = function() {
+    // //   return "I'm currently a student";
+    // // }
+
+      // console.log(Person.prototype);  // Person { sayHi: [Function], status: [Function] }  
+      // console.log(Student.prototype); // Person { sayHi: [Function], status: [Function] }  // points to the same object
+
+      // // we obviously want Student.prototype to have it's own Object so that it doesn't affect the parent Person.prototype Object
+      // // to do this we can set Student.prototype to a newley created object instanciated with the Person.prototype properties
+
+    // Student.prototype = Object.create(Person.prototype);
+
+      // // notice we are using 'Object.create()' instead of 'new Object()' this is because 'new' will create a new prototype object that we don't need
+
+    // Student.prototype.status = function() {
+      // return "I'm currently a student";
+    // }
       
-      // this is still not finished (there are two steps to prototypical inheritance)
-      // in the foolowing result notice the assignment of Student.prototype.status now dosen't affect the 'Person.prototype' object
+      // // this is still not finished (there are two steps to prototypical inheritance)
+      // // in the foolowing result notice the assignment of Student.prototype.status now dosen't affect the 'Person.prototype' object
 
-      console.log(Person.prototype);  // Person { sayHi: [Function] }  
-      console.log(Student.prototype); // Person { status: [Function] }   // but the Student.prototype is still set to the Person instead of Stduent
+      // console.log(Person.prototype);  // Person { sayHi: [Function] }  
+      // console.log(Student.prototype); // Person { status: [Function] }   // but the Student.prototype is still set to the Person instead of Stduent
 
-  // **************************************************
-  // two steps for prototypical inheritance
+  // // **************************************************
+  // // two steps for prototypical inheritance
 
-  // 1. set the functions prototype object to the function that it is inheriting from with 
-  //      <childFunction>.prototype = Object.create(<ParentFunction>.prototype)
-  // 2. reset the prototype constructor property 
-  //      <childFunction>.prototype.constructor = <childFunction>
+  // // 1. set the functions prototype object to the function that it is inheriting from with 
+  // //      <childFunction>.prototype = Object.create(<ParentFunction>.prototype)
+  // // 2. reset the prototype constructor property 
+  // //      <childFunction>.prototype.constructor = <childFunction>
 
-  //**************************************************
+  // //**************************************************
     
-    Student.prototype.constructor = Student
+    // Student.prototype.constructor = Student
 
-      console.log(Person.prototype); // Person { sayHi: [Function] }
-      console.log(Student.prototype); // Student { constructor: [Function: Student], status: [Function] }
+      // console.log(Person.prototype); // Person { sayHi: [Function] }
+      // console.log(Student.prototype); // Student { constructor: [Function: Student], status: [Function] }
 
-      // everything is complete
+      // // everything is complete
       
 
-    console.log('Person.prototype.__proto__', Person.prototype.__proto__);    // {}
-    console.log('Student.prototype.__proto__', Student.prototype.__proto__);  // Person { sayHi: [Function] }
+    // console.log('Person.prototype.__proto__', Person.prototype.__proto__);    // {}
+    // console.log('Student.prototype.__proto__', Student.prototype.__proto__);  // Person { sayHi: [Function] }
 
-    console.log('--------------------------------------------------'); 
+    // console.log('--------------------------------------------------'); 
 
-    // it dosen't matter where you set up the prototypical inheritance (before or after the assignment of functions to the parent element)
-    // all changes made to the parent prototype object will reflect in child constructor functions
+    // // it dosen't matter where you set up the prototypical inheritance (before or after the assignment of functions to the parent element)
+    // // all changes made to the parent prototype object will reflect in child constructor functions
 
-    Person.prototype.walk = function() {
-      return this.firstName + ' is now walking';
-    }
+    // Person.prototype.walk = function() {
+      // return this.firstName + ' is now walking';
+    // }
 
-    let person1 = new Person('nate', 'lipp');
-    console.log(person1.walk());
+    // let person1 = new Person('nate', 'lipp');
+    // console.log(person1.walk());
+
+
+
+
+
 

@@ -1,0 +1,86 @@
+****************************************************************************************************
+react
+****************************************************************************************************
+
+*intro
+*components
+*JSX
+
+****************************************************************************************************
+*intro
+
+
+  React is not really that much of a framework by itself it is more of a view library that uses composable components
+
+  React is not only used in web development, it is also used with vr and smartphone apps
+    these use different libararies in addition to react
+    the core component of react is seperated from the dom component so both need to be used when creating web views with react
+    an additional common library is react dom factories which can be used to create dom elements
+    
+      <script src="https://unpkg.com/react@16.0.0/umd/react.development.js"></script>               // core react component
+      <script src="https://unpkg.com/react-dom@16.0.0/umd/react-dom.development.js"></script>       // dom development component
+      <script src="https://unpkg.com/react-dom-factories@1.0.0/index.js"></script>                  // dom factores
+
+
+****************************************************************************************************
+*components
+
+
+  all components deal with the view in some way -> the view is how components are displayed on the screen
+  every component needs to have a render method
+    the render method returns html that you want to have put in the DOM using react dom factores compoenent
+
+  common librairies used with react
+    react router -> deals with navigation
+    redux        -> a single place to store state in the application
+
+  composable components
+    an application has many components
+      a component can be paramiteratized, meaning you can pass in data through parameters such as a url, image, timestamp
+      reactDOM can be used to render components on the page 
+
+    example :
+
+      class Pet extends React.Component {  // every component that you create extends from Compoenent and have a render() method
+        render() {
+            // first parameter of this function takes attributes(obj) you want for the compoenet or null, additinoal parameters are inside elements
+          const h2 = ReactDOMFactores.h2(null, 'Moxie');
+          const img = ReactDOMFactores.img({
+            src: "https://github.com/tigarcia/Moxie/raw/master/moxie.png",
+            alt: "Moxie the cat",
+          });
+          return ReactDOMFactories.div(null, h2, img);
+        }                                        
+      }
+
+      ReactDOM.render(React.createElement(Pet), document.getElementById('app'));  // creates the element and renders it to the selected element on the page
+
+
+    the class builds and returns the compoenent inside the render method
+    ReactDom is used to create an element using the class (factory) 'Pet' 
+      and render the element onto the page by selecting which element to append it to
+
+
+****************************************************************************************************
+*JSX
+
+  ** when working with JSX all tags must be closed **
+    <img src="" alt="" />
+
+  babel -> a general purpose transpiler that converts one type of source code to another type
+             started out being used to transpile es5 to es6 but now used more generally
+
+  with react babel is used to convert JSX into vanila javaScript
+    this allows us to skip writing all the DOM factories code and write JSX instead
+
+  for JSX instead of using react dom factories we can use babel
+    you also need to change the script type="text/javascript" to type="text/babel"
+
+      <script src="https://unpkg.com/react@16.0.0/umd/react.development.js"></script>                  // core react component
+      <script src="https://unpkg.com/react-dom@16.0.0/umd/react-dom.development.js"></script>          // dom development component
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>  // babel instead of dom factories
+
+      <script type="text/babel"></script>  // this signals to babel that it is not a normal javascript file but needs to be transpiled by babel
+
+
+

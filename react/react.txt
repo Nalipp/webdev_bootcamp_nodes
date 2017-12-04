@@ -5,6 +5,7 @@ react
 *intro
 *components
 *JSX
+*multiple components
 
 ****************************************************************************************************
 *intro
@@ -41,20 +42,20 @@ react
 
     example :
 
-      class Pet extends React.Component {  // every component that you create extends from Compoenent and have a render() method
-        render() {
-            // first parameter of this function takes attributes(obj) you want for the compoenet or null, additinoal parameters are inside elements
-          const h2 = ReactDOMFactores.h2(null, 'Moxie');
-          const img = ReactDOMFactores.img({
-            src: "https://github.com/tigarcia/Moxie/raw/master/moxie.png",
-            alt: "Moxie the cat",
-          });
-          return ReactDOMFactories.div(null, h2, img);
-        }                                        
-      }
+      <script type="text/javascript">
+        class Pet extends React.Component {
+          render() {
+            const h2 = ReactDOMFactories.h2(null, 'Moxie');
+            const img = ReactDOMFactories.img({
+              src : "https://github.com/tigarcia/Moxie/raw/master/moxie.png",
+              alt : "Moxie the cat",
+            });
+            return ReactDOMFactories.div(null, h2, img);
+          }
+        }
 
-      ReactDOM.render(React.createElement(Pet), document.getElementById('app'));  // creates the element and renders it to the selected element on the page
-
+        ReactDOM.render(React.createElement(Pet), document.getElementById('app'));
+      </script>
 
     the class builds and returns the compoenent inside the render method
     ReactDom is used to create an element using the class (factory) 'Pet' 
@@ -64,7 +65,7 @@ react
 ****************************************************************************************************
 *JSX
 
-  ** when working with JSX all tags must be closed **
+  ** when working with JSX you cannot get away with not closing html tags **
     <img src="" alt="" />
 
   babel -> a general purpose transpiler that converts one type of source code to another type
@@ -83,4 +84,118 @@ react
       <script type="text/babel"></script>  // this signals to babel that it is not a normal javascript file but needs to be transpiled by babel
 
 
+    example :
 
+        <script type="text/babel">
+          class Pet extends React.Component {
+            render() {
+              return (
+                <div>
+                  <h2>Moxie</h2>
+                  <img src="https://github.com/tigarcia/Moxie/raw/master/moxie.png" alt="Moxie the cat" />
+                </div>
+              )
+            }
+          }
+
+          ReactDOM.render(<Pet />, document.getElementById('app'));
+        </script>
+
+
+  However there is a problem with returning html by compiling it through babel
+    since babel uses javascript to compile the html, anything reserved keywords in javascript are used inside the html there will be unintended concequences
+    class="container"  // there is a problem with javascript seeing class as a reserved word so instead you need to use className
+
+    return (
+        <div className="container">
+      )
+
+  **************************************************
+  styles
+
+    inline styles can also be added programatically instead of css classes or id's
+    inline styles can be useful when you only need the styles to apply to that component (not abailable globally)
+
+    styles take an object, which represents the css
+    instead of using hyphens like you normally would with css you need to use camel case
+
+      example :
+
+        render() {
+          const listStyle = {fontSize: '1.5em'};  // assign you styles inside the render method above the return html using camel case
+          return (
+            <div>
+              <h2>Moxie</h2>
+              <img src="https://github.com/tigarcia/Moxie/raw/master/moxie.png" alt="Moxie the cat" />
+              <h5 style={{fontSize : '2em', margin : '10px'}}>Hobbies</h5>  // the object containing the styles can also be added directly
+              <ul>
+                <li style={listStyle}>element 1</li>   // add the style to the element
+                <li style={listStyle}>element 2</li>   
+              </ul>
+            </div>
+          )
+        }
+
+  **************************************************
+  iterating over data
+    
+    with react you can iterate directly over the html
+    however there each component must have a unique key (in the example we use the index but this is not good practice if you need to remove data)
+
+      example :
+
+        render() {
+          const listStyle = {fontSize: '1.5em'};
+          const hobbies = ['Sleep', 'Eat', 'Play', 'Cuddle'];
+          return (
+            <div className="card">
+              <h2 className="name">Moxie</h2>
+              <img src="https://github.com/tigarcia/Moxie/raw/master/moxie.png" alt="Moxie the cat" />
+              <h5 style={{fontSize : '2em', margin : '10px'}}>Hobbies</h5>
+                <ul>
+                  {hobbies.map((v, i) => <li key={i} style={listStyle}>{v}</li>)}
+                </ul>
+            </div>
+          )
+        }
+
+
+****************************************************************************************************
+*multiple components
+
+  example :
+
+    <body>
+      <div id="app"></div>
+
+      <script type="text/babel">
+        class Hobby extends React.Component {
+          render() {
+            const hobbies = ['Sleep', 'Eat', 'Play', 'Cuddle'];
+            return (
+              <ul>
+                {hobbies.map((v, i) => {
+                  return <li key={i} style={{fontSize:"2em"}}>{v}</li>
+                })}
+              </ul>
+            )
+          }
+        }
+
+        class Pet extends React.Component {
+          render() {
+            const listStyle = {fontSize: '1.5em'};
+            return (
+              <div className="card">
+                <h2 className="name">Moxie</h2>
+                <img src="https://github.com/tigarcia/Moxie/raw/master/moxie.png" alt="Moxie the cat" />
+                <h5 style={{fontSize : '3em', margin : '10px'}}>Hobbies</h5>
+                <Hobby />
+              </div>
+            )
+          }
+        }
+
+        ReactDOM.render(<Pet />, document.getElementById('app'));
+      </script>
+    </body>

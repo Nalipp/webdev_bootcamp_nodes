@@ -260,7 +260,7 @@ react
       if you are iterating over prop values but there are not props specified you will recieve an error 'cannot iterate null'
       to prevent this you can use default props
 
-        example :
+        example1 :
 
           class Ingredients extends Component {
             static defaultProps = {
@@ -275,6 +275,22 @@ react
           }
 
           if props values are null then an error will not be thrown
+
+
+        example2 :
+
+          class Ingredients extends Component {
+            render() {
+              return (
+                {this.props.ingredients.map((v, i) => <p key={i}>{v}</p>)}
+              )
+            }
+          }
+
+          Ingredients.defaultProps = {
+              ingredients: []
+          }
+
 
   **************************************************
   prop types

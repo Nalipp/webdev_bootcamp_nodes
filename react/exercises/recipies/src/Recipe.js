@@ -3,16 +3,6 @@ import './Recipe.css';
 import Ingredient from './Ingredient.js';
 
 class Recipe extends Component {
-  static defaultProps = {
-    data: [
-      {
-        title: 'Machine Made Pancakes',
-        ingredients: ['pancake mix', 'water', 'electricity'],
-        instructions: 'Put the ingredients in a pancake machine and turn on',
-        img: 'pancakes.jpg',
-      },
-    ]
-  }
   render() {
     const {data} = this.props;
     const recipeCard = {

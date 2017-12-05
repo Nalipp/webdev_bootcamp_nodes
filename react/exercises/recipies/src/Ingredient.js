@@ -9,7 +9,8 @@ class Ingredients extends Component {
     return (
       <ul>
         ingredients : {ingredients}
-      </ul>)
+      </ul>
+    )
   }
 }
 

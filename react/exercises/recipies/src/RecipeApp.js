@@ -5,8 +5,19 @@ import './RecipeApp.css';
 
 class RecipeApp extends Component {
   render() {
-    // const data = undefined;
-    const data = [
+    return (
+      <div id="main">
+        <Nav />
+        <div id="recipies">
+          <Recipe data={this.props.data}/>
+        </div>
+      </div>
+    )
+  }
+}
+
+Recipe.defaultProps = {
+  data: [
       {
         title: 'Pasta',
         ingredients: ['noodles', 'pasta sauce', 'french bread'],
@@ -25,16 +36,13 @@ class RecipeApp extends Component {
         instructions: 'mash the advocado up and put it on the toast',
         img: 'avoToast.jpg',
       },
-    ]
-    return (
-      <div id="main">
-        <Nav />
-        <div id="recipies">
-          <Recipe data={data}/>
-        </div>
-      </div>
-    )
-  }
+    {
+      title: 'Machine Made Pancakes',
+      ingredients: ['pancake mix', 'water', 'electricity'],
+      instructions: 'Put the ingredients in a pancake machine and turn on',
+      img: 'pancakes.jpg',
+    },
+  ]
 }
 
 export default RecipeApp;

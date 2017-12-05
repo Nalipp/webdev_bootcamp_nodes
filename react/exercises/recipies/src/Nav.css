@@ -1,0 +1,11 @@
+nav {
+  background: dodgerBlue;
+  color: #fff;
+  padding: 0;
+}
+
+#logo {
+  flex-grow: 2;
+  font-size: 26px;
+}
+

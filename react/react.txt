@@ -254,3 +254,71 @@ react
     xthis.props.newProp = 'hi' // also works but you shouldn't do it
 
 
+  **************************************************
+  default props
+
+      if you are iterating over prop values but there are not props specified you will recieve an error 'cannot iterate null'
+      to prevent this you can use default props
+
+        example :
+
+          class Ingredients extends Component {
+            static defaultProps = {
+              ingredients: []
+            }
+
+            render() {
+              return (
+                {this.props.ingredients.map((v, i) => <p key={i}>{v}</p>)}
+              )
+            }
+          }
+
+          if props values are null then an error will not be thrown
+
+  **************************************************
+  prop types
+
+    ** props only work in development, they will not work in production **
+      allows you to specify the type of default value a prop is
+
+      $ npm install --save prop-types
+
+        example1 :
+
+          import PropTypes from 'prop-types';
+
+          class Ingredients extends Component {
+            static propType = {
+              ingredients: PropTypes.arrayOf(PropTypes.string).isRequired;  // the data type must be an array of strings and is required
+            }                                                               // if these are not met you will get a warning in the console
+
+            render() {
+              return (
+                <ul>
+                  {this.props.ingredients.map((ing, index) => (
+                    <li key={ingex}>{ing}</li>
+                  ))}
+                </ul>
+              )
+            }
+          }
+
+        example2 :
+
+          import PropTypes from 'prop-types';
+
+          class Greeting extends Component {
+            render() {
+              return (
+                  <h1>Hello, {this.props.name}</h1>
+                  );
+            }
+          }
+
+          Greeting.propTypes = {
+            name: PropTypes.string
+          };:
+
+
+

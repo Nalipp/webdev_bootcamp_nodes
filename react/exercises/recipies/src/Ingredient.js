@@ -1,15 +1,16 @@
 import React, {Component} from 'react';
 
-class Ingredient extends Component {
+class Ingredients extends Component {
   render() {
-    const listItem = {
-      marginLeft: '16px',
-    };
+    const ingredients = this.props.ingredients.map((v, i) => (
+      <li key={i} style={{marginLeft: '16px'}}>{v}</li>
+    ));
+
     return (
-      <p>
-        ingredients : {this.props.text.map((v, i) => <li key={i} style={listItem}>{v}</li>)}
-      </p>)
+      <ul>
+        ingredients : {ingredients}
+      </ul>)
   }
 }
 
-export default Ingredient;
+export default Ingredients;

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Component 1</title>
+    <link rel="stylesheet" href="" />
+    <script src="https://unpkg.com/react@16.0.0/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.0.0/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+</head>
+<body>
+  <div id="app"></div>
+
+  <script type="text/babel">
+  class App extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {favColor: 'red'};
+
+      setTimeout(() => {
+        this.setState({favColor: 'blue'})
+      }, 2000)
+
+      setTimeout(() => {
+        console.log(this.state);
+      }, 3000)
+    }
+    render() {
+      return (
+        <p>
+          My favorite Color is : {this.state.favColor}
+        </p>
+      )
+    }
+  }
+
+  ReactDOM.render(<App />, document.getElementById('app'));
+  </script>
+</body>
+</html>

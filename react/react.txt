@@ -9,6 +9,8 @@ react
 *create react app
 *import export 
 *props
+*state
+*react component architecture
 
 ****************************************************************************************************
 *intro
@@ -277,7 +279,7 @@ react
           if props values are null then an error will not be thrown
 
 
-        example2 :
+        example2 : different syntax but same thing
 
           class Ingredients extends Component {
             render() {
@@ -296,10 +298,9 @@ react
   prop types
 
     are a development time checker for you props, allows you to specify the type of default value a prop is
-    ** props only work in development, they will not work in production **
+    ** prop types only work in development, they will not work in production **
 
-    lesson didn't go that deep into prop types but the documentation is prety straight forward
-      search : typechecking with proptypes
+    documentation => search typechecking with proptypes
 
         $ npm install --save prop-types
 
@@ -390,3 +391,181 @@ react
               </div>
             )
           }
+
+
+  **************************************************
+  props.children
+
+    a collection of children inside a component
+    ???? missing only a blog post that doesn't work
+    https://mxstbr.blog/2017/02/react-children-deepdive/
+
+
+****************************************************************************************************
+*state
+
+  state is data in your application that can change
+  props cannot be changed but state can
+  just like props we should not modify state directly
+  
+  instanciating state
+
+    example :
+
+      class App extends Component {
+        constructor(props) {
+          super(props);
+          this.state = {favColor: 'blue'};  // we assign state to an object that holds data in our application that we might want to change
+        }
+
+        render() {
+          return (
+            <p>
+              My Favorite Color is : {this.state.favColor}
+            </p>
+          )
+        }
+      }
+
+  updating state
+    the correct way to change state is with this.setState({ });
+    steState allows you to define a new object with all the properties that you want to overwrite in the old version of state
+    using set state ensures that your functions are pure (not modifiying the global state)
+
+    example :
+
+      when the state is updated render() will be invoked
+      when render is invoked a new view (dom) will get updated
+
+      class App extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {favColor: 'red'};
+
+          setTimeout(() => {
+            this.setState({favColor: 'blue'})
+          }, 2000)
+        }
+        render() {
+          return (
+            <p>
+              My favorite Color is : {this.state.favColor}
+            </p>
+          )
+        }
+      }
+
+
+  ************************************************** 
+  pure functions 
+
+    pure functions do not have side effects (they do not modify their inputs or any global state, they are repeatable)
+    we can create a pure function that does not mutate the original obj using Object.assign()
+
+      example : Object.assign()
+      
+        let person1 = {
+          name: 'nate',
+          job: 'teacher'
+        }
+
+        function updateJob(obj, job) {
+          return Object.assign({}, obj, {job});
+        }
+
+        console.log(updateJob(person1, 'developer'));   // { name: 'nate', job: 'developer' }
+        console.log(person1);                           // { name: 'nate', job: 'teacher' }
+
+
+    The spread opperator allows you to change multiple values without stating each of them 
+
+      example : using spread opperator
+
+        function updatePerson(obj, name, job) {
+          return {...obj, name, job};
+        }
+
+        console.log(updatePerson(person1, 'Nate Lipp', 'Developer'));    // { name: 'Nate Lipp', job: 'Developer' }
+        console.log(person1);                                            // { name: 'nate', job: 'teacher' } 
+
+
+  **************************************************
+  modifying state without side effects
+
+    example1 : modifying state wth Object.assign()
+
+      class App extends Component {
+        constructor(props) {
+          super(props);
+          this.state = {
+            instructors: [
+              { name: 'Tim', hobbies: ['sailing', 'react']}, 
+              { name: 'Matt', hobbies: ['math', 'd3']}, 
+              { name: 'Colt', hobbies: ['css', 'hiking']}, 
+              { name: 'Elie', hobbies: ['music', 'es2015']}
+            ]
+          };
+
+          setTimeout(() => {
+            const randInst = Math.floor(Math.random() * this.state.instructors.length);                      // get random instructor index
+            const randHobby = Math.floor(Math.random() * this.state.instructors[randInst].hobbies.length);   // get random hobby index
+
+            const instructors = this.state.instructors.slice();               // makes a copy of the state
+            instructors[randInst] = Object.assign({}, instructors[randInst])  // use Object.assign() to create a new object of the object you want to mutate 
+            instructors[randInst].hobbies = instructors[randInst].hobbies.slice(); // copy that newly created object
+            instructors[randInst].hobbies.splice(randHobby, 1);               // mutating the copy of the new object will not mutate the original state
+            this.setState({instructors})                                      // set the state without permenantly affecting the original state object
+                                                                              // setState() will also render() the page
+          }, 2000);
+        }
+
+        render() {
+          const instructors = this.state.instructors.map((instructor, index) => (
+            <li key={index}>
+              <h3>{instructor.name}</h3>
+              <h4>Hobbies: {instructor.hobbies.join(", ")}</h4>
+            </li>
+          ));
+          return (
+            <div className="App">
+              <ul>
+                {instructors}
+              </ul>
+            </div>
+          );
+        }
+      }
+
+    example2 : modifying state wth the map
+
+      setTimeout(() => {
+        const randInst = Math.floor(Math.random() * this.state.instructors.length);                      // get random instructor index
+        const randHobby = Math.floor(Math.random() * this.state.instructors[randInst].hobbies.length);   // get random hobby index
+
+        let instructors = this.state.instructors.map((inst, i) => {
+          if (i === randInst) {
+            const hobbies = [...inst.hobbies];                 // make a copy of the hobbies array (same as inst.hobbies.slice())
+            inst.hobbies = hobbies.splice(randHobby, 1);       // set the return value of the spliced (removed) element to inst.hobbies
+            return {
+              name: inst.name,
+              hobbies: hobbies,
+            }
+          } 
+
+          return inst;
+        });
+
+        this.setState({instructors}) 
+
+
+****************************************************************************************************
+*react component architecture
+
+  where to put state in your application and how props and state should interact together
+    pass state to child components as props
+    define which components own state
+    use stateless functional components
+
+    how is state shared
+      state is always passed downward from a parent to a child component -> the child compoenet gets the state from the parent as a prop
+      state should not be passed to a sibling or a parent

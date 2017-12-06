@@ -2,15 +2,13 @@ import React, { Component } from 'react';
 import './App.css';
 import PropTypes from 'prop-types';
 
-class Instructors extends Component {
-  render() {
-    return(
-      <li key={this.props.index}>
-        <h3>{this.props.name}</h3>
-        <h4>Hobbies: {this.props.hobbies.join(", ")}</h4>
-      </li>
-    )
-  }
+const Instructors = props => {
+  return (
+    <li>
+      <h3>{props.name}</h3>
+      <h4>Hobbies: {props.hobbies.join(", ")}</h4>
+    </li>
+  )
 }
 
 Instructors.propTypes = {
@@ -47,7 +45,6 @@ class App extends Component {
       });
       this.setState({instructors})
     }, 2000);
-
   }
 
   render() {

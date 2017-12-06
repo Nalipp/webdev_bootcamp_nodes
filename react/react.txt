@@ -569,3 +569,44 @@ react
     how is state shared
       state is always passed downward from a parent to a child component -> the child compoenet gets the state from the parent as a prop
       state should not be passed to a sibling or a parent
+
+    state should be owned by one component
+        the compoenent owning the state should be above all other components that need to use it
+          example => if you have game component and a navbar component and the navbar has a reset button. 
+            then state would have to be in a component above both the game component and the navbar so that the game could be reset
+            all of the state for the game should be owned by one component
+
+
+    ************************************************** 
+    stateless functional components
+
+      components that are implemented using a function not a class
+      the function implements the render() method only (no constructor, no state)
+
+        example : 
+
+          import React from 'react';
+
+          const Greeting = props => {
+            <h1>Hello, {props.name}</h1>
+          }
+
+          export default Greeting;
+
+
+        example2 : 
+
+          const Instructors = props => {
+            return (
+              <li>
+                <h3>{props.name}</h3>
+                <h4>Hobbies: {props.hobbies.join(", ")}</h4>
+              </li>
+            )
+          }
+
+          Instructors.propTypes = {
+            name: PropTypes.string,
+            hobbies: PropTypes.arrayOf(PropTypes.string),
+          }
+

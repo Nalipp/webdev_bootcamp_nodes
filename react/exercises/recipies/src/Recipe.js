@@ -1,30 +1,37 @@
 import React, { Component } from 'react';
 import './Recipe.css';
-import Ingredient from './Ingredient.js';
+import PropTypes from 'prop-types';
 
 class Recipe extends Component {
   render() {
-    const {data} = this.props;
-    const recipeCard = {
-      border: '2px solid #ccc',
-      flexBasis: '31%',
-      margin: '20px 0',
-      background: '#fff',
-    }
+    const {title, instructions, img} = this.props;
+    const ingredients = this.props.ingredients.map((v, i) => (
+      <li key={i}>{v}</li>
+    ));
     return (
-      data.map((v, i) => {
-        return <div key={i} style={recipeCard}>
-          <img style={{width: '100%'}} src={v.img} alt={v.title + ' image'} />
-          <div style={{padding: '15px'}}>
-            <h3>{v.title}</h3>
-            <Ingredient ingredients={v.ingredients} />
-            <p>instructions :</p>
-            {v.instructions} 
-          </div>
+      <div className="recipe-card">
+        <div className="recipe-card-content">
+          <img src={img} alt={title}/>
+          <h3 className="recipe-title">{title}</h3>
+          <h4>Ingredients :</h4>
+          <p>
+            {ingredients}
+          </p>
+          <h4>Instructions :</h4>
+          <p>
+            {instructions}
+          </p>
         </div>
-      })
-    );
+      </div>
+    )
   }
+}
+
+Recipe.propTypes = {
+  title : PropTypes.string.isRequired,
+  instructions : PropTypes.string.isRequired,
+  ingredients : PropTypes.arrayOf(PropTypes.string).isRequired,
+  img : PropTypes.string.isRequired,
 }
 
 export default Recipe;

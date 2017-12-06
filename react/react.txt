@@ -295,46 +295,98 @@ react
   **************************************************
   prop types
 
+    are a development time checker for you props, allows you to specify the type of default value a prop is
     ** props only work in development, they will not work in production **
-      allows you to specify the type of default value a prop is
 
-      $ npm install --save prop-types
+    lesson didn't go that deep into prop types but the documentation is prety straight forward
+      search : typechecking with proptypes
 
-        example1 :
+        $ npm install --save prop-types
 
-          import PropTypes from 'prop-types';
+          example1 :
 
-          class Ingredients extends Component {
-            static propType = {
-              ingredients: PropTypes.arrayOf(PropTypes.string).isRequired;  // the data type must be an array of strings and is required
-            }                                                               // if these are not met you will get a warning in the console
+            import PropTypes from 'prop-types';
 
-            render() {
-              return (
-                <ul>
-                  {this.props.ingredients.map((ing, index) => (
-                    <li key={ingex}>{ing}</li>
-                  ))}
-                </ul>
-              )
+            class Ingredients extends Component {
+              static propType = {
+                ingredients: PropTypes.arrayOf(PropTypes.string).isRequired;  // the data type must be an array of strings and is required
+              }                                                               // if these are not met you will get a warning in the console
+
+              render() {
+                return (
+                  <ul>
+                    {this.props.ingredients.map((ing, index) => (
+                      <li key={ingex}>{ing}</li>
+                    ))}
+                  </ul>
+                )
+              }
             }
+
+          example2 :
+
+            import PropTypes from 'prop-types';
+
+            class Greeting extends Component {
+              render() {
+                return (
+                    <h1>Hello, {this.props.name}</h1>
+                    );
+              }
+            }
+
+            Ingredients.propTypes = {
+              name: PropTypes.string,                        // a single peice of data
+            }
+
+            // additional examples
+
+              Ingredients.propTypes = {
+                data: PropTypes.arrayOf(PropTypes.object).isRequired,     // an array of objects
+              }
+
+              Recipe.propTypes = {
+                title : PropTypes.string.isRequired,
+                instructions : PropTypes.string.isRequired,
+                ingredients : PropTypes.arrayOf(PropTypes.string).isRequired,
+                img : PropTypes.string.isRequired,
+              }
+
+
+  **************************************************
+  spread opperator
+
+    if you are going to use the same name for the value names then it is easier to use the spread opperater
+    it is considered sloppy code when you use this too liberally, for example when you are passing unecessary data to components
+
+      example :
+
+        before :
+
+          render() {
+            return (
+              <div>
+                {this.props.recipies.map((v, i) => (
+                  <Recipie 
+                    key={i}
+                    title={v.title}
+                    ingredients={v.ingredients}
+                    img={v.img} 
+                    instructions={v.instructions}
+                  />
+                ))}
+              </div>
+            )
           }
 
-        example2 :
+        after :
 
-          import PropTypes from 'prop-types';
-
-          class Greeting extends Component {
-            render() {
-              return (
-                  <h1>Hello, {this.props.name}</h1>
-                  );
-            }
+          render() {
+            return (
+              <div>
+                {this.props.recipies.map((v, i) => (
+                  <Recipie key={i} {...r}/>
+                ))}
+              </div>
+            )
           }
-
-          Greeting.propTypes = {
-            name: PropTypes.string
-          };:
-
-
-

@@ -583,6 +583,10 @@ react
       components that are implemented using a function not a class
       the function implements the render() method only (no constructor, no state)
 
+      if you component dosen't have any state it is a good idea to change you component into a stateless functional component
+        because it is cleaner and may provide better performance
+
+
         example : 
 
           import React from 'react';

@@ -1,0 +1,9 @@
+body {
+  margin: 0;
+  padding: 6px;
+  font-family: sans-serif;
+}
+
+#stopTimer {
+  cursor: pointer;
+}

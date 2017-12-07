@@ -9,7 +9,6 @@ class ProductTable extends Component {
     this.props.products.forEach((v, i) => {
       if (categoryName !== v.category) {
         row.push(<ProductCategoryRow key={i} categoryName={v.category} />);
-        // row.push(ProductCategoryRow(i, v.category));
       } else {
         row.push(<ProductRow key={i} product={v} />);
       }

@@ -11,6 +11,7 @@ react
 *props
 *state
 *react component architecture
+*handling events
 
 ****************************************************************************************************
 *intro
@@ -455,6 +456,46 @@ react
         }
       }
 
+  ************************************************** 
+  Lifecycle hooks
+
+    it is important to free up memroy when components are destroyed
+    this can be done through lifecycle hooks
+
+      example :
+
+        class Clock extends React.Component {
+          constructor(props) {
+            super(props);
+            this.state = {date: new Date()};  // we want this state to change every second
+          }
+
+          componentDidMount() {
+            this.clockId = setInterval(() => this.tick(), 1000);  // componentDidMount is a lifecycle method that mounts the component automatically
+          }
+
+          componentWillMount() {
+            clearInterval(this.clockId);  // if the component is removed from the page componentWillMount() is run, in this case clearning the interval
+          }
+
+          tick() {
+            this.setState({date : new Date()}) // setState runs the render method below 
+          }
+
+          render () {  // the this.state object can be used freely attach peices of state but only if it is being used in render()
+            return (
+              <div>
+                <h1>Clock</h1>
+                <h3>{this.state.date.toLocaleTimeString()}</h3>
+              </div>
+            )
+          }
+        }
+
+  ReactDOM.render(<Clock />, document.getElementById('root'));
+  registerServiceWorker();
+  
+
 
   ************************************************** 
   pure functions 
@@ -613,4 +654,21 @@ react
             name: PropTypes.string,
             hobbies: PropTypes.arrayOf(PropTypes.string),
           }
+
+
+****************************************************************************************************
+*handling events
+
+  example : vanila javascirpt
+
+    <button onclick="activateLasers()">
+      Activate Lasers
+    </button>
+
+
+  example : React
+
+    <button onClick={activateLasers}>
+      Activate Lasers
+    </button>
 

@@ -456,6 +456,52 @@ react
         }
       }
 
+  **************************************************
+  setState()
+
+    gotchas 
+      1. not calling prevState when relying on previous state
+      2. not understanding that setState() is asyncronous
+
+
+      1. prevState()
+
+        in order to ensure that the state is getting updated correctly you need to use prevState
+          whenever a setState depends on a previous state you should use a funciton parameter
+
+        example : (bad) may be incorrect especially if you are making multiple setState requests
+
+          constructor(props) {
+            supper(props);
+            this.state = {counter: 1};
+          }
+
+          this.setState({counter : this.state.counter + 1})
+
+
+        example : (good) using preState
+
+          this.setState((prevState, props) => {
+            return {
+              counter: preState.count + 1;
+            };
+          });
+
+
+      2. ascyncronous code
+
+        example : (bad)
+
+          this.setState({name: 'Nate'});
+          console.log(this.state.name)   // logs undefined becuase the code is asyncronous
+
+        example : (good) providing a callback to setState()
+
+          this.setState({name: 'Nate'}, () => {
+            console.log(this.state.name);
+          });
+
+
   ************************************************** 
   Lifecycle hooks
 
@@ -495,7 +541,6 @@ react
   ReactDOM.render(<Clock />, document.getElementById('root'));
   registerServiceWorker();
   
-
 
   ************************************************** 
   pure functions 

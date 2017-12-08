@@ -431,7 +431,6 @@ react
   updating state
     the correct way to change state is with this.setState({ });
     steState allows you to define a new object with all the properties that you want to overwrite in the old version of state
-    using set state ensures that your functions are pure (not modifiying the global state)
 
     example :
 

@@ -1,17 +1,38 @@
 import React, { Component } from 'react';
 import './App.css';
+import Box from './Box';
 
 class App extends Component {
-  
   constructor(props) {
     super(props);
+    this.state = {
+      randBox: Math.floor(Math.random() * 147),
+      randColor: Math.floor(Math.random() * 147),
+    }
   }
-  
+
+  componentDidMount() {
+    setInterval(() => this.randomize(), 1000);
+  }
+
+  randomize() {
+    this.setState({randBox: Math.floor(Math.random() * 147)});
+    this.setState({randColor: Math.floor(Math.random() * 147)});
+  }
+
   render() {
 
+    const boxElement = this.props.allColors.map((v, i) => {
+      if (i === this.state.randBox) {
+        return <Box key={i} color={this.props.allColors[this.state.randColor]} />
+      } else {
+        return <Box key={i} color={v} />
+      }
+    });
+  
     return (
       <div className="App">
-        Render boxes here
+        {boxElement}
       </div>
     );
   }
@@ -41,3 +62,10 @@ App.defaultProps = {
 };
 
 export default App;
+
+
+// need box component, each box component will have a color property
+  // make the box a stateless functional component?? (the box itself won't have any state, the App controls the state)
+// needs state for all 32 boxes
+// set interval that will randomly choose a box and change it every 300 miliseconds
+

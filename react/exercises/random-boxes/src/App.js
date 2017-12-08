@@ -2,42 +2,38 @@ import React, { Component } from 'react';
 import './App.css';
 import Box from './Box';
 
+const NUM_OF_BOXES = 32;
+
 class App extends Component {
   constructor(props) {
     super(props);
+    this.initialBoxes = Array(NUM_OF_BOXES).fill().map(this.getRandomColor, this);
     this.state = {
-      initialBoxes: this.initializeBoxes(),
       randBox: this.returnRandomNumber(),
     };
-  }
 
-  componentDidMount() {
     setInterval(() => this.randomize(), 300);
   }
 
-  initializeBoxes() {
-    let boxes = [];
-    for (let i = 0; i < 32; i++) {
-      boxes.push(this.props.allColors[this.returnRandomNumber()]);
-    }
-    return boxes;
-  }
-
   randomize() {
-    this.setState({randBox: this.returnRandomNumber(32)})
+    this.setState({randBox: this.returnRandomNumber(NUM_OF_BOXES)})
   }
 
   returnRandomNumber(num=this.props.allColors.length) {
     return Math.floor(Math.random() * num);
   }
 
+  getRandomColor() {
+    return this.props.allColors[this.returnRandomNumber()]
+  }
+
   render() {
-    const boxElement = this.state.initialBoxes.map((v, i) => {
+    const boxElement = this.initialBoxes.map((boxColor, i) => {
       if (i === this.state.randBox) {
-        let randColor = this.state.initialBoxes[this.returnRandomNumber(32)]
+        let randColor = this.initialBoxes[this.returnRandomNumber(NUM_OF_BOXES)]
         return <Box key={i} color={randColor} />
       } else {
-        return <Box key={i} color={v} />
+        return <Box key={i} color={boxColor} />
       }
     });
   

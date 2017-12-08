@@ -1,11 +1,11 @@
 import React from 'react';
 
-function Box(props) {
+let Box = ({color}) => {
   const boxStyle = {
     width: '100px',
     height: '100px',
     display: 'inline-block',
-    background: props.color,
+    background: color,
   }
   return(<div style={boxStyle}></div>)
 }

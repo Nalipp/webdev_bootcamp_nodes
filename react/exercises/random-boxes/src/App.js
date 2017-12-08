@@ -6,25 +6,36 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      randBox: Math.floor(Math.random() * 147),
-      randColor: Math.floor(Math.random() * 147),
-    }
+      initialBoxes: this.initializeBoxes(),
+      randBox: this.returnRandomNumber(),
+    };
   }
 
   componentDidMount() {
-    setInterval(() => this.randomize(), 1000);
+    setInterval(() => this.randomize(), 300);
+  }
+
+  initializeBoxes() {
+    let boxes = [];
+    for (let i = 0; i < 32; i++) {
+      boxes.push(this.props.allColors[this.returnRandomNumber()]);
+    }
+    return boxes;
   }
 
   randomize() {
-    this.setState({randBox: Math.floor(Math.random() * 147)});
-    this.setState({randColor: Math.floor(Math.random() * 147)});
+    this.setState({randBox: this.returnRandomNumber(32)})
+  }
+
+  returnRandomNumber(num=this.props.allColors.length) {
+    return Math.floor(Math.random() * num);
   }
 
   render() {
-
-    const boxElement = this.props.allColors.map((v, i) => {
+    const boxElement = this.state.initialBoxes.map((v, i) => {
       if (i === this.state.randBox) {
-        return <Box key={i} color={this.props.allColors[this.state.randColor]} />
+        let randColor = this.state.initialBoxes[this.returnRandomNumber(32)]
+        return <Box key={i} color={randColor} />
       } else {
         return <Box key={i} color={v} />
       }

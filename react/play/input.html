@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Component 1</title>
+    <link rel="stylesheet" href="first-component.css" />
+    <script src="https://unpkg.com/react@16.0.0/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.0.0/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    class Form extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {inputText: ""};
+      }
+
+      render () {
+        return (
+          <div>
+            <input 
+              type="text" 
+              value={this.state.inputText} 
+              onChange={(e) => {
+                this.setState({inputText: e.target.value}) 
+              }}/>
+            <h1>{this.state.inputText}</h1>
+          </div>
+        ) 
+      }
+    }
+
+    ReactDOM.render(<Form />, document.getElementById('root'));
+  </script>
+</body>
+</html>

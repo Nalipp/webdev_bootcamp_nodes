@@ -14,6 +14,7 @@ react
 *handling events
 *virtial DOM
 *events
+*forms
 
 ****************************************************************************************************
 *intro
@@ -831,6 +832,67 @@ react
           }
 
         ....
+
+
+
+****************************************************************************************************
+*forms
+
+  onSubmit can be used to handle form submits
+
+  ************************************************** 
+  controlled vs uncontroled components
+
+    an uncontroled component is a component that react doesnt have control over
+    react is not aware of what the user is typeing, the browser is in charge of state
+
+      example : (bad) uncontrolled componnet
+
+        <input type="text" />
+
+        you can type in the input box but react will not be affected because you are not connected to the components state in react
+
+
+      example : (bad) controlled component
+
+        <input type="text" value={this.state.inputText} />
+
+        this is a controlled component because the value is being assigned by the state in the component
+          but it is not useful because nothing is being updated
+
+    ************************************************** 
+    onChange
+
+      a proper controlled component allows you to change and update the state using onChange
+
+      onChange
+        will be invoked anytime a key is typed
+        also calling setState and render each time a key is typed
+
+      e.target.value
+        the value of the current state in the input box can be accessed using e.target.value
+
+        example : (good)
+
+          <input 
+            type="text" 
+            value={this.state.inputText} 
+            onChange={(e) => {
+              this.setState({inputText: e.target.value}) 
+            }}/>
+
+
+    ************************************************** 
+    onSubmit
+
+
+
+
+
+
+
+
+
 
 
 

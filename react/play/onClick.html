@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Component 1</title>
+    <link rel="stylesheet" href="first-component.css" />
+    <script src="https://unpkg.com/react@16.0.0/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.0.0/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    class Name extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {name : 'Nate'};
+        this.uppercase = this.uppercase.bind(this);
+      }
+
+      uppercase(e) {
+        this.setState((prevState, props) => ({
+          name: prevState.name.toUpperCase()
+        }));
+      }
+
+      render () {
+        return (
+          <div>
+            <h1>{this.state.name}</h1>
+            <button 
+              type="button"  
+              onClick={this.uppercase}>
+              UPPERCASE
+            </button>
+          </div>
+        ) 
+      }
+    }
+
+    ReactDOM.render(<Name />, document.getElementById('root'));
+  </script>
+</body>
+</html>

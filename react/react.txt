@@ -12,6 +12,8 @@ react
 *state
 *react component architecture
 *handling events
+*virtial DOM
+*events
 
 ****************************************************************************************************
 *intro
@@ -716,3 +718,121 @@ react
       Activate Lasers
     </button>
 
+****************************************************************************************************
+*virtial DOM
+
+  with react you only need to describe the changes you want to components in a declaritive way
+  through the process of reconciliation react will match the react virtual dom with the brwoser dom for you
+
+  **************************************************************************************************** 
+  reconciliation
+
+    there is a virtual dom that is being stored by React and there is the browsers dom
+      when a component is added or removed (or changed) in React it is first updated on the virtual dom and then on the browser dom
+      reconciliation is the process of react updating the browser dom to match the react virtual dom
+
+      when a react component is removed from the browser dom it is unmounted
+
+
+  ************************************************** 
+  synthectic events 
+
+    similar to native browser events, the main difference is that syntetic events in react provide a consistent api that is the same in any browser
+
+
+  **************************************************
+  react 16 (fiber)
+    
+    fiber is the name of the new reconciliation machine in raect 16
+
+      render() will be able to return an array of JSX elements or a string
+
+      example :
+        render() {
+          return [
+            <div key='a'>first element</div>,
+            <div key='b'>second element</div> 
+          ]
+        }
+
+      this means you don't have to put all of you components inside of a parent container like in react 15 (no more extra wrappers)
+
+
+****************************************************************************************************
+*events
+
+  ************************************************** 
+  click event
+
+    onClick event
+
+      example : 
+
+        class Name extends React.Component {
+          constructor(props) {
+            super(props);
+            this.state = {name : 'Nate'};
+          }
+          render () {
+            return (
+              <div>
+                <h1>{this.state.name}</h1>
+                <button 
+                  type="submit"  
+                  onClick={() => this.setState({name: "NATE"})}>  // after onClick, setState re-renders the page with the expected uppercase name
+                  UPPERCASE
+                </button>
+              </div>
+            ) 
+          }
+        }
+
+
+      example : moving a click event function out of the render and into its own class function
+
+        class Name extends React.Component {
+          constructor(props) {
+            super(props);
+            this.state = {name : 'Nate'};
+            this.uppercase = this.uppercase.bind(this);  // we have to bind the uppercase method to 'Name' permentntly
+          }
+
+          uppercase() {
+            this.setState({name: 'LIPP'});  // the reference to the Name component is lost here because we are using a non arrow function
+          }
+
+          render () {
+            return (
+              <div>
+                <h1>{this.state.name}</h1>
+                <button 
+                  type="submit"  
+                  onClick={this.uppercase}>
+                  UPPERCASE
+                </button>
+              </div>
+            ) 
+          }
+        }
+
+      example : click events and prevState (common pattern, best practice)
+
+        class Name extends React.Component {
+          constructor(props) {
+            super(props);
+            this.state = {name : 'Nate'};
+            this.uppercase = this.uppercase.bind(this);
+          }
+
+          uppercase(e) {
+            this.setState((prevState, props) => ({     // an extra () is needed to wrap the return block
+              name: prevState.name.toUpperCase()       // takes the previous state and updates it instead of hardcoding the update
+            }));
+          }
+
+        ....
+
+
+
+        ************************************************** 
+        bound functions vs inline functions

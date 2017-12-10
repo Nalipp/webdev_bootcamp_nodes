@@ -1,0 +1,35 @@
+.Todo {
+  margin: 15px;
+  text-align: center;
+}
+
+ol {
+  width: 35%;
+  margin: 20px auto;
+}
+
+li {
+  text-align: left;
+}
+
+form {
+  width: 50%;
+  margin: auto;
+}
+
+input {
+  width: 100%;
+  padding: 4px 0 4px 6px;
+  font-size: 20px;
+}
+
+button {
+  display: block;
+  margin: 20px auto;
+  font-size: 20px;
+  padding: 6px 10px;
+  border: 2px solid grey;
+  color: grey;
+  border-radius: 8px;
+  cursor: pointer;
+}

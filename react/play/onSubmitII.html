@@ -1,0 +1,64 @@
+<DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Component 1</title>
+    <link rel="stylesheet" href="first-component.css" />
+    <script src="https://unpkg.com/react@16.0.0/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.0.0/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    class Form extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = { 
+          inputText: '',
+          todos: ['this', 'is', 'the'],
+        }
+      }
+
+      render () {
+        const todos = this.state.todos.map((todo, i) => (
+          <li key={i}>{todo}</li>
+        ))
+
+        return (
+          <div>
+            <h1>{this.state.inputText}</h1>
+
+            <form onSubmit={(e) => {
+              e.preventDefault();
+              this.setState((prevState, props) => (
+                prevState.todos.push(this.state.inputText)
+              ))
+            }}>
+
+              <input 
+                type="text" 
+                name="inputText"
+                value={this.state.inputText} 
+
+                onChange={(e) => {
+                  this.setState({inputText: e.target.value}) 
+                }}/>
+
+              <br />
+              <button>submit</button>
+            </form>
+
+            <p>{todos}</p>
+
+          </div>
+        ) 
+      }
+    }
+
+    ReactDOM.render(<Form />, document.getElementById('root'));
+  </script>
+</body>
+</html>
+

@@ -8,6 +8,10 @@
     <script src="https://unpkg.com/react-dom@16.0.0/umd/react-dom.development.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
 </head>
+<style>
+  * {margin: 14px;}
+  label {display: block;}
+</style>
 <body>
   <div id="root"></div>
 
@@ -15,37 +19,57 @@
     class Form extends React.Component {
       constructor(props) {
         super(props);
-        this.state = {data: {
-          inputText: '',
-          todos: ['hi', 'there', 'how']
-        }};
+        this.state = {
+          fName: '',
+          lName: '',
+          allNames: ['Nate Lipp', 'Julia Lipp']
+        };
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+      }
+
+      handleSubmit(e) {
+        e.preventDefault();
+        const allNames = [...this.state.allNames, this.state.fName + ' ' + this.state.lName];
+        this.setState({allNames, lName: '', fName: ''});
+      }
+
+      handleChange(e) {
+        this.setState({[e.target.name]: e.target.value}) 
       }
 
       render () {
+        const allNames = this.state.allNames.map((name, i) => (
+          <li key={i}>{name}</li>
+        ))
         return (
           <div>
-            <h1>{this.state.inputText}</h1>
+            <form onSubmit={this.handleSubmit}>
 
-            <form onSubmit={(e) => {
-              e.preventDefault();
-              const data = [...this.state.data, this.state.inputText];
-              this.setState({data, inputText: ''});
-            }}>
+              <label>First Name
+                <input 
+                  type="text" 
+                  name="fName"
+                  value={this.state.fName} 
+                  onChange={this.handleChange}/>
+                <span>{this.state.fName}</span>
+              </label>
 
-              <input 
-                type="text" 
-                name="inputText"
-                value={this.state.inputText} 
-
-                onChange={(e) => {
-                  this.setState({[e.target.name]: e.target.value}) 
-                }}/>
+              <label>Last Name
+                <input 
+                  type="text" 
+                  name="lName"
+                  value={this.state.lName} 
+                  onChange={this.handleChange}/>
+                <span>{this.state.lName}</span>
+              </label>
+                
 
               <br />
               <button>submit</button>
             </form>
 
-            <p>{this.state.submitedTitle}</p>
+            <p>{allNames}</p>
 
           </div>
         ) 

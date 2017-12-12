@@ -18,8 +18,17 @@ class Todo extends Component {
       <div className="Todo">
         <form onSubmit={(e) => {
           e.preventDefault();
+          this.setState((prevState, props) => (
+            prevState.todos.push(this.state.todoInput)
+          ), {todoInput: ''})
+          this.setState({todoInput: ''})
         }}>
-          <input placeholder="what needs to be done?"/> 
+          <input 
+            placeholder="what needs to be done?"
+            value={this.state.todoInput}
+            onChange={(e) => {
+              this.setState({todoInput: e.target.value})
+            }}/> 
           <button>Submit</button>
         </form>
         <ol>

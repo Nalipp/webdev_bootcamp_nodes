@@ -885,7 +885,31 @@ react
     ************************************************** 
     onSubmit
 
-      example : (incomplete)
+      example : basic 
+
+        return (
+          <div className="Todo">
+            <form onSubmit={(e) => {
+              e.preventDefault();
+              this.setState((prevState, props) => (
+                prevState.todos.push(this.state.todoInput)
+              ))
+            }}>
+              <input 
+                placeholder="what needs to be done?"
+                onChange={(e) => {
+                  this.setState({todoInput: e.target.value})
+                }}/> 
+              <button>Submit</button>
+            </form>
+            <ol>
+              {todos}
+            </ol>
+          </div>
+        );
+ 
+
+      example : (incomplete) updating multiple elements on submit 
 
         return (
           <form onSubmit={(e) => {
@@ -903,6 +927,39 @@ react
               }}/>
           </form>
         ) 
+
+
+    **************************************************
+    refs (incomplete lesson)
+
+      a ref is a direct reference to a dom element
+
+        so far we have only provided state to react, and then react decides what to do with the dom
+
+        refs allow you to do such things as 
+          manage focus, text selection or media playback
+          trigger imperative animations
+          integration with 3rd party dom libraries (such as d3)
+
+        you should not use refs when you can accomplish the same thing with react
+          should be considered more of a last option when trying to solve a problem
+
+        example : 
+          insead of having a controlled input we will leave it uncontrolled
+            this means that the browser will be managing all of the state
+            and react is not aware of what is happening to the input
+
+          <form onSubmit={(e) => {
+            console.log(this.inputText.value); 
+          }}>
+          <input 
+            type="text"
+            ref={(input) => this.inputText = input}
+          />
+          </form>
+
+            // the ref callback has access to that dom element and can save it to the componentent (allowing it to change state etc...)
+
 
 
 

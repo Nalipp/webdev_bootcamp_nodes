@@ -5,8 +5,9 @@ import './RecipeList.css';
 
 class RecipeList extends Component {
   render() {
+    const {onDelete} = this.props;
     const recipes = this.props.recipes.map((r,index) => (
-      <Recipe key={r.id} {...r} />
+      <Recipe key={r.id} {...r} onDelete={onDelete} />
     ));
     
     return (
@@ -18,7 +19,8 @@ class RecipeList extends Component {
 }
 
 RecipeList.propTypes = {
-  recipes: PropTypes.arrayOf(PropTypes.object).isRequired
+  recipes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onDelete: PropTypes.func.isRequired
 }
 
 export default RecipeList;

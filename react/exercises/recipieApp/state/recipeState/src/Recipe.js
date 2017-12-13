@@ -4,8 +4,7 @@ import './Recipe.css';
 
 class Recipe extends Component {
   render() {
-    console.log(this.props);
-    const {title, img, instructions} = this.props;
+    const {title, img, instructions, onDelete, id} = this.props;
     const ingredients = this.props.ingredients.map((ing, index) => (
       <li key={index}>{ing}</li> 
     ));
@@ -22,8 +21,10 @@ class Recipe extends Component {
           </ul>
           <h4>Instructions:</h4>
           <p>{instructions}</p>
+          <button type="button" onClick={() => onDelete(id)}>
+            Delete
+          </button>
         </div>
-        
       </div>
     );
   }
@@ -34,6 +35,8 @@ Recipe.ProtoTypes = {
   ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
   instructions: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  onDelete: PropTypes.func.isRequired,
 }
 
 export default Recipe;

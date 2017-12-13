@@ -15,6 +15,7 @@ react
 *virtial DOM
 *events
 *forms
+*saving data
 
 ****************************************************************************************************
 *intro
@@ -960,17 +961,14 @@ react
 
             // the ref callback has access to that dom element and can save it to the componentent (allowing it to change state etc...)
 
-
-
-
-
-
-
-
-
-
-
-
-
         ************************************************** 
         bound functions vs inline functions
+
+
+****************************************************************************************************
+*saving data
+
+  state can be updated using a callback function as a prop
+  if the component holding state needs to be updated when a form is submited on a different component,
+    this can be done by the component holding state passing a callback function as a prop that will wait for the form to be submitted
+    the callback function will do the state update

@@ -9,13 +9,19 @@ class CardList extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      clickedColor: null,
+      colorClicked: null,
     }
+    this.onColorClicked = this.onColorClicked.bind(this);
+  }
+
+  onColorClicked(color) {
+    console.log(color[0] === this.state.colorClicked);
+    this.setState({colorClicked: color[0]})
   }
 
   render() {
     const cards = this.props.allCards.map((c, i) => (
-      <Card key={i} color={c.color}/>
+      <Card key={i} color={c.color} onColorClicked={this.onColorClicked} />
     ));
     return (
       <div className="cardList">
@@ -25,7 +31,7 @@ class CardList extends Component {
   }
 }
 
-function mapColors(arr) {
+let mapColors = (arr) => {
   let arrCopy1 = arr.slice();
   let arrCopy2 = arr.slice();
   let returnArr = [];

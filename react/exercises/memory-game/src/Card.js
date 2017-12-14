@@ -3,9 +3,12 @@ import './Card.css';
 
 class Card extends Component {
   render() {
-    const {color} = this.props;
+    const {color, onColorClicked} = this.props;
     return(
-      <div className="box" style={{backgroundColor: color}}></div>
+      <div className="box" 
+           onClick={() => onColorClicked(color)}
+           style={{backgroundColor: color}}>
+      </div>
     )
   }
 }

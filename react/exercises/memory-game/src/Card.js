@@ -3,14 +3,20 @@ import './Card.css';
 
 class Card extends Component {
   render() {
-    const {color, onColorClicked} = this.props;
+    const {id, color, showing, onClick} = this.props;
+    const style = {};
+    if (showing) style.background = color;
     return(
       <div className="box" 
-           onClick={() => onColorClicked(color)}
-           style={{backgroundColor: color}}>
+           onClick={() => onClick(id, color)}
+           style={style}>
       </div>
     )
   }
+}
+
+Card.defaultProps = {
+  onClick() {}
 }
 
 export default Card;

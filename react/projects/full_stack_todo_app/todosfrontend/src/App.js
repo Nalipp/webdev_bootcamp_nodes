@@ -18,7 +18,7 @@ class App extends Component {
     let text = 'Loading...';
     if (this.state.todos.length > 0) {
       text = this.state.todos.map((todo) => (
-        <TodoList key={todo.id} name={todo.name} completed={todo.completed}/>
+        <TodoList key={todo._id} name={todo.name} completed={todo.completed}/>
       ))
     }
     return (

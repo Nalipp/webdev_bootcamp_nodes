@@ -1,0 +1,9 @@
+#earth {
+  max-width: 100%;
+}
+
+h1 {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}

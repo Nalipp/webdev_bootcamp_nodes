@@ -16,6 +16,7 @@ react
 *events
 *forms
 *saving data
+*component lifecycle methods
 
 ****************************************************************************************************
 *intro
@@ -972,3 +973,64 @@ react
   if the component holding state needs to be updated when a form is submited on a different component,
     this can be done by the component holding state passing a callback function as a prop that will wait for the form to be submitted
     the callback function will do the state update
+
+
+****************************************************************************************************
+*component lifecycle methods
+
+  component lifecycle methods can be run when the component is ...
+    first loaded
+    unloaded
+    rendered again
+
+    mountin -> when the component is first rendered in the DOM
+    componentWillMount() -> occurs when the constructor is finished but before render is called (component needs a constructor)
+    componentDidMount()  -> after the render call 
+
+      constructor()
+      componentWillMount()    (before the dom is loaded)
+      render()
+      componentDidMount()     (after the dom is loaded)
+
+      componentWillUnmount() -> used for cleaning up a component
+        example : clearning the id of a setInterval
+
+      updating -> these happens whenever setState is called
+        componentWillRecieveProps(nextProps) -> if any of the props have changed
+        shouldComponentUnmount(nextProps, nextState) a way to shortcircut reacts normal render behavior (don't use this the reason not really explained??)
+        componentWillUpdate(nextProps, nextState) -> will get called right before the render() so you can see what props and state are about to be updated
+        render()
+        componentDidUpdate(prevProps, prevState) -> could be used with logging (example : if you want to log everytime you render)
+
+      forceUpdate(callback) -> skips should component update (shouldn't really be used.. didn't explain other then usually you should let react update)
+
+
+  common examples 
+
+    example : componentWillUnmount() 
+      commonly used for cleanup or stopping a set interval
+
+      constructor(props) {
+        super(props);
+        this.state = {
+          date: new Date(),
+        }
+
+        this.clearId = setInterval(() => {
+          this.setState({date: new Date()}) 
+        }, 1000)
+      }
+      componentWillUnmount() {
+        clearInterval(this.clearId);
+      }
+      render() {
+        return (
+          <p>
+            {this.state.date.toLocaleTimeString()}
+          </p>
+        )
+      }
+
+    example : componentDidMount()
+      commonly used with AJAX requests
+      will only happen once for the life of the component -> works well for getting all the data needed for a view

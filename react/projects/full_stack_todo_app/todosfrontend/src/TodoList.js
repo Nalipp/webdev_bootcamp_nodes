@@ -9,9 +9,13 @@ class TodoList extends Component {
     this.state = {
       todos: []
     }
+  this.addTodo = this.addTodo.bind(this);
   }
   componentWillMount() {
     this.loadTodos();
+  }
+  addTodo(val) {
+    console.log('ADDING TODO TO LIST...', val);
   }
   loadTodos() {
     fetch(APIURL)
@@ -40,7 +44,7 @@ class TodoList extends Component {
     return (
       <div>
         <h1>Todo List</h1>
-        <TodoForm />
+        <TodoForm addTodo={this.addTodo}/>
         <ul>
           {todo}
         </ul>

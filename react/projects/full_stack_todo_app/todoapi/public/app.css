@@ -76,6 +76,13 @@ li span {
   opacity: 0;
 }
 
+li span.edit {
+  font-size: 12px;
+  font-weight: bold;
+  color: #00cc44;
+  padding-right: 10px;
+}
+
 li span:hover {
   color: #e74c3c
 }
